@@ -601,7 +601,99 @@ main{padding:2px 16px 40px;max-width:520px;margin:0 auto;position:relative;z-ind
   border-bottom:1px solid var(--surface-2);font-size:14px}
 .ai-added-row:last-child{border-bottom:none}
 .ai-added-name{flex:1;min-width:0;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-</style>
+/* ===== 打卡 ===== */
+.habit-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--surface-2)}
+.habit-row:last-child{border-bottom:none}
+.habit-name{flex:1;font-size:15px;font-weight:800}
+.habit-meta{font-size:12px;color:var(--text-3);font-weight:600}
+.habit-row.done .habit-name{color:var(--text-3)}
+.challenge-row{border:1px solid var(--border);border-radius:12px;padding:11px 13px;margin-bottom:9px}
+.challenge-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.challenge-name{font-size:14px;font-weight:800}
+.challenge-num{font-size:12px;color:var(--text-3);font-weight:700}
+.challenge-bar{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-bottom:9px}
+.challenge-bar i{display:block;height:100%;background:var(--wish);border-radius:99px}
+.coin-item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--surface-2)}
+.coin-item:last-child{border-bottom:none}
+.coin-item-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.coin-item-name{font-size:14px;font-weight:800}
+.coin-item-desc{font-size:12px;color:var(--text-3);font-weight:600}
+.coin-special{background:#FEE2E2;color:#DC2626;font-size:11px;padding:1px 6px;border-radius:6px;font-weight:800}
+html.theme-pink{--wish:#D98BA0;--wish-soft:#FBEBEF}html.theme-rose{--wish:#D9738F;--wish-soft:#FCEEF1}html.theme-lilac{--wish:#9B7FC7;--wish-soft:#F2EDFB}html.theme-sky{--wish:#5E9BD6;--wish-soft:#E9F3FC}html.theme-amber{--wish:#C79A3E;--wish-soft:#FBF3E2}html.theme-ink{--wish:#8FA3BF;--wish-soft:#2A3242;--bg:#191E26;--surface:#222935;--text:#E6EBF2;--text-3:#9AA7B8;--border:#333C4A;--surface-2:#2C3441}html.theme-snow{--wish:#7E96B4;--wish-soft:#F1F5FA;--bg:#FFFFFF;--surface:#FFFFFF;--text:#1C2530;--text-3:#8A97A6;--border:#E5EAF1;--surface-2:#F6F8FB}
+html.theme-mint{--wish:#6FBFA6;--wish-soft:#E6F6F0}/* 打卡装饰 */
+body.ck-skin{--wish:#9B7FC7;--wish-soft:#F0EAFB}
+body.ck-skin .slot-name,body.ck-skin .shop-name{color:#6F4FA0}
+body.ck-fx .gacha-stage{position:relative}body.ck-fx .gacha-stage::after{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;animation:ckfx 1.1s ease 1;background:radial-gradient(circle at 50% 40%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%)}
+@keyframes ckfx{0%{filter:brightness(1)}45%{filter:brightness(1.18) saturate(1.15)}100%{filter:brightness(1)}}/* 卡面皮肤 */
+html.cs-blue .fan-card,html.cs-blue .wish-card{box-shadow:0 0 0 1.5px #A8C3DE, 0 10px 22px rgba(168,195,222,.20)!important}
+html.cs-dash .fan-card,html.cs-dash .wish-card{outline:1.5px dashed #A9D6C8!important;outline-offset:-2px!important;box-shadow:0 10px 22px rgba(169,214,200,.18)!important}
+html.cs-dot .fan-card,html.cs-dot .wish-card{outline:2px dotted #D8B6C0!important;outline-offset:-2px!important;box-shadow:0 10px 22px rgba(227,195,203,.18)!important}
+html.cs-double .fan-card,html.cs-double .wish-card{box-shadow:0 0 0 1.5px #C9D5E4, 0 0 0 4px rgba(201,213,228,.55), 0 10px 22px rgba(168,195,222,.16)!important}
+html.cs-corner .fan-card,html.cs-corner .wish-card{box-shadow:0 0 0 1.5px #CDD6E2, 0 10px 22px rgba(168,195,222,.18)!important}
+html.cs-corner .fan-card::before,html.cs-corner .wish-card::before{content:"";position:absolute;inset:4px;border-radius:10px;border:1px solid rgba(140,160,185,.45);pointer-events:none}/* 花纹卡面：四角星芒 / 四角小花 */
+html.cs-magic .fan-card,html.cs-magic .wish-card{
+  box-shadow:0 0 0 1.2px #CFC3E8, 0 10px 22px rgba(155,127,199,.16)!important;
+}
+html.cs-magic .fan-card::after,html.cs-magic .wish-card::after{
+  content:"";position:absolute;inset:3px;pointer-events:none;border-radius:10px;
+  background-repeat:no-repeat;
+  background-size:11px 11px;
+  background-position:0 0, 100% 0, 0 100%, 100% 100%;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 1l2.7 8.3L23 12l-8.3 2.7L12 23l-2.7-8.3L1 12l8.3-2.7z' fill='%23B9A6DC'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 1l2.7 8.3L23 12l-8.3 2.7L12 23l-2.7-8.3L1 12l8.3-2.7z' fill='%23B9A6DC'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 1l2.7 8.3L23 12l-8.3 2.7L12 23l-2.7-8.3L1 12l8.3-2.7z' fill='%23B9A6DC'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 1l2.7 8.3L23 12l-8.3 2.7L12 23l-2.7-8.3L1 12l8.3-2.7z' fill='%23B9A6DC'/></svg>");
+}
+html.cs-floral .fan-card,html.cs-floral .wish-card{
+  box-shadow:0 0 0 1.2px #E9CBD3, 0 10px 22px rgba(227,183,196,.18)!important;
+}
+html.cs-floral .fan-card::after,html.cs-floral .wish-card::after{
+  content:"";position:absolute;inset:3px;pointer-events:none;border-radius:10px;
+  background-repeat:no-repeat;
+  background-size:12px 12px;
+  background-position:0 0, 100% 0, 0 100%, 100% 100%;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g fill='%23E3B7C4'><circle cx='12' cy='6.5' r='4.2'/><circle cx='12' cy='17.5' r='4.2'/><circle cx='6.5' cy='12' r='4.2'/><circle cx='17.5' cy='12' r='4.2'/></g><circle cx='12' cy='12' r='3' fill='%23FFF6E3'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g fill='%23E3B7C4'><circle cx='12' cy='6.5' r='4.2'/><circle cx='12' cy='17.5' r='4.2'/><circle cx='6.5' cy='12' r='4.2'/><circle cx='17.5' cy='12' r='4.2'/></g><circle cx='12' cy='12' r='3' fill='%23FFF6E3'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g fill='%23E3B7C4'><circle cx='12' cy='6.5' r='4.2'/><circle cx='12' cy='17.5' r='4.2'/><circle cx='6.5' cy='12' r='4.2'/><circle cx='17.5' cy='12' r='4.2'/></g><circle cx='12' cy='12' r='3' fill='%23FFF6E3'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g fill='%23E3B7C4'><circle cx='12' cy='6.5' r='4.2'/><circle cx='12' cy='17.5' r='4.2'/><circle cx='6.5' cy='12' r='4.2'/><circle cx='17.5' cy='12' r='4.2'/></g><circle cx='12' cy='12' r='3' fill='%23FFF6E3'/></svg>");
+}
+/* 卡面边框不影响卡片尺寸；扇面容器不超出面板 */
+.fan-card,.wish-card{box-sizing:border-box!important}
+.fan-deck-container{max-width:100%!important}/* 宽屏下限制成手机宽度，避免布局被拉伸 */
+@media (min-width:560px){
+  body{max-width:460px;margin:0 auto;box-shadow:0 0 0 1px #E3E9F0;min-height:100vh}
+  .bottom-tabs{left:50%!important;right:auto!important;transform:translateX(-50%);max-width:460px;width:100%}
+}#btnWeekly,#btnMonthly,#btnQuarter,#btnYear{white-space:nowrap}.cal-actions{display:flex;flex-wrap:wrap;gap:6px}.cal-actions .btn{flex:1 1 calc(50% - 3px);min-width:0;white-space:nowrap;padding-left:6px;padding-right:6px}/* 抽卡结果：简洁的柔光 + 悬浮感 */
+#rewardGlow{display:none!important}
+#rewardModal.on .reward-card,#rewardModal.show .reward-card{box-shadow:0 20px 46px rgba(60,80,115,.28),0 6px 16px rgba(60,80,115,.16)!important}
+#rewardModal .reward-card-wrap{filter:drop-shadow(0 0 24px rgba(255,255,255,.55))}/* 星光：暖金四角星 + 细密光点，卡片内外都有 */
+#rewardModal.on .reward-card,#rewardModal.show .reward-card{box-shadow:0 24px 60px rgba(120,95,50,.28),0 0 70px rgba(255,226,170,.55),0 0 140px rgba(255,214,140,.28)!important}
+#rewardModal .reward-card-wrap::before{content:"";position:absolute;inset:-70px;z-index:1;pointer-events:none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 0l2.1 9.9L24 12l-9.9 2.1L12 24l-2.1-9.9L0 12l9.9-2.1z%27 fill=%27%23FFF7E2%27/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 0l2.1 9.9L24 12l-9.9 2.1L12 24l-2.1-9.9L0 12l9.9-2.1z%27 fill=%27%23FFF7E2%27/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 0l2.1 9.9L24 12l-9.9 2.1L12 24l-2.1-9.9L0 12l9.9-2.1z%27 fill=%27%23FFF7E2%27/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 0l2.1 9.9L24 12l-9.9 2.1L12 24l-2.1-9.9L0 12l9.9-2.1z%27 fill=%27%23FFF7E2%27/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 0l2.1 9.9L24 12l-9.9 2.1L12 24l-2.1-9.9L0 12l9.9-2.1z%27 fill=%27%23FFF7E2%27/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 0l2.1 9.9L24 12l-9.9 2.1L12 24l-2.1-9.9L0 12l9.9-2.1z%27 fill=%27%23FFF7E2%27/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-size:22px 22px,14px 14px,18px 18px,12px 12px,16px 16px,10px 10px;
+  background-position:6% 14%,88% 8%,92% 52%,4% 66%,48% 94%,22% 40%;
+  animation:twA 3.4s ease-in-out infinite}
+#rewardModal .reward-card-wrap::after{content:"";position:absolute;inset:-110px;z-index:1;pointer-events:none;
+  background-image:
+    radial-gradient(2px 2px at 30% 18%,rgba(255,246,220,.95) 50%,transparent 51%),
+    radial-gradient(1.6px 1.6px at 72% 30%,rgba(255,246,220,.85) 50%,transparent 51%),
+    radial-gradient(2px 2px at 12% 58%,rgba(255,246,220,.9) 50%,transparent 51%),
+    radial-gradient(1.4px 1.4px at 86% 68%,rgba(255,246,220,.75) 50%,transparent 51%),
+    radial-gradient(1.8px 1.8px at 52% 96%,rgba(255,246,220,.85) 50%,transparent 51%),
+    url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 0l2.1 9.9L24 12l-9.9 2.1L12 24l-2.1-9.9L0 12l9.9-2.1z%27 fill=%27%23FFF7E2%27/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 0l2.1 9.9L24 12l-9.9 2.1L12 24l-2.1-9.9L0 12l9.9-2.1z%27 fill=%27%23FFF7E2%27/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-size:auto,auto,auto,auto,auto,26px 26px,16px 16px;
+  background-position:0 0,0 0,0 0,0 0,0 0,78% 84%,16% 8%;
+  animation:twB 5.2s ease-in-out infinite alternate}
+@keyframes twA{0%,100%{opacity:.45;transform:scale(.97)}50%{opacity:1;transform:scale(1.03)}}
+@keyframes twB{0%{opacity:.5;transform:translate(-6px,3px)}100%{opacity:.95;transform:translate(8px,-5px)}}
+/* 只有正面文字面用半透明，卡背保持原样 */
+#rewardModal #rewardFront{background:rgba(255,255,255,.70)!important;backdrop-filter:blur(10px) saturate(120%);-webkit-backdrop-filter:blur(10px) saturate(120%);border:1px solid rgba(255,255,255,.75)!important}</style>
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -619,6 +711,10 @@ main{padding:2px 16px 40px;max-width:520px;margin:0 auto;position:relative;z-ind
 
 <main>
   <section id="page-gacha" class="page active">
+  <div class="seg" id="drawSeg">
+    <button class="seg-btn on" data-seg="wish">心愿</button>
+    <button class="seg-btn" data-seg="action">行动</button>
+  </div>  <div id="paneWish">
     <div class="panel" style="padding:16px 16px 20px">
       <div class="panel-head">
         <span class="panel-title"><span class="dot"></span>心愿抽卡</span>
@@ -641,9 +737,8 @@ main{padding:2px 16px 40px;max-width:520px;margin:0 auto;position:relative;z-ind
       <div class="panel-head"><span class="panel-title"><span class="dot"></span>今日心愿</span><span class="panel-sub">保质期 7 天</span></div>
       <div id="todayWishList"></div>
     </div>
-  </section>
-
-  <section id="page-actions" class="page">
+  </div>
+  <div id="paneAction" style="display:none">
     <div class="panel" style="padding:16px 16px 20px">
       <div class="panel-head">
         <span class="panel-title"><span class="dot" style="background:var(--action)"></span>行动魔法书</span>
@@ -734,9 +829,14 @@ main{padding:2px 16px 40px;max-width:520px;margin:0 auto;position:relative;z-ind
       <div class="panel-head"><span class="panel-title"><span class="dot" style="background:var(--action)"></span>今日行动</span><span class="panel-sub">保质期 3 天</span></div>
       <div id="todayActionList"></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="page-inventory" class="page">
+  <section id="page-inventory" class="page">    <div class="seg" id="invSeg">
+      <button class="seg-btn on" data-invseg="inv">仓库</button>
+      <button class="seg-btn" data-invseg="prop">道具</button>
+    </div>
+    <div id="invPane">
     <div class="panel">
       <div class="panel-head"><span class="panel-title"><span class="dot"></span>行动仓库</span><span class="panel-sub" id="actionInvInfo">0/8 格 · 3 天保质</span></div>
       <div class="inv-grid" id="actionInvGrid"></div>
@@ -749,7 +849,15 @@ main{padding:2px 16px 40px;max-width:520px;margin:0 auto;position:relative;z-ind
       <div class="panel-head"><span class="panel-title"><span class="dot"></span>延时卡库存</span><span class="panel-sub">在卡片上点击 ⏱️ 使用</span></div>
       <div id="delayItems"></div>
     </div>
-  </section>
+      </div>
+    <div id="propPane" style="display:none">
+      <div class="panel">
+        <div class="panel-head"><span class="panel-title"><span class="dot" style="background:var(--lavender)"></span>我的道具</span><span class="panel-sub" id="propSub">兑换来的券在这里</span></div>
+        <div id="tokenBox"></div>
+        <div id="propExtra"></div>
+        <div class="hint">抽卡类道具点「使用」立即生效；幸运符、稀有符、双倍能量会在下次抽卡/完成行动时自动生效。</div>
+      </div>
+    </div>  </section>
 
   <section id="page-shop" class="page">
     <div class="seg" id="shopSeg">
@@ -953,6 +1061,49 @@ main{padding:2px 16px 40px;max-width:520px;margin:0 auto;position:relative;z-ind
       <div class="hint" style="margin-top:10px;font-size:14px;color:var(--text-3)">建议每周导出一次，将代码复制保存到坚果云或备忘录。</div>
     </div>
   </section>
+  <section id="page-checkin" class="page">
+    <div class="seg" id="checkinSeg">
+      <button class="seg-btn on" data-cseg="today">今日</button>
+      <button class="seg-btn" data-cseg="shop">兑换</button>
+    </div>
+
+    <div class="panel" style="padding:11px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <span style="font-size:15px;font-weight:800">💰 金币</span>
+      <span id="coinSub" style="font-size:16px;font-weight:800;color:var(--wish)">0 币</span>
+    </div>
+    <div id="checkinToday">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="dot" style="background:var(--mint)"></span>固定挑战</span>
+          <span class="panel-sub" id="checkinStreakSub">今天还没打卡</span>
+        </div>
+        <div id="habitList"></div>
+        <div class="hint" id="habitHint">每天点一次，连续天数会累计。断签归零，保留最长纪录。</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="dot" style="background:var(--lavender)"></span>本周挑战</span>
+          <span class="panel-sub" id="challengeSub">周一刷新</span>
+        </div>
+        <div id="challengeList"></div>
+      </div>
+
+      
+      </div>
+    </div>
+
+    <div id="checkinShop" style="display:none">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="dot" style="background:var(--pink)"></span>限时兑换</span>
+          <span class="panel-sub" id="shopRefreshSub">还有 3 天刷新</span>
+        </div>
+        <div class="hint" id="shopHint">每 3 天换一批 5 个，每个只能买 1 次，其中 1 个是 7 折特价。</div>
+        <div id="coinShopList"></div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <!-- 优化后的底部导航图标 -->
@@ -961,9 +1112,9 @@ main{padding:2px 16px 40px;max-width:520px;margin:0 auto;position:relative;z-ind
     <svg viewBox="0 0 24 24"><path d="M4 7.5h16v11a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5V7.5z"/><path d="M4 7.5l2-3h12l2 3"/><circle cx="12" cy="13.5" r="2.5"/><path d="M12 11v5"/></svg>
     <span>仓库</span>
   </button>
-  <button class="tab" data-page="actions">
-    <svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5L12 3z"/><circle cx="12" cy="11" r="1.5" fill="currentColor" stroke="none"/></svg>
-    <span>行动</span>
+  <button class="tab" data-page="checkin">
+    <svg viewBox="0 0 24 24"><path d="M5 20V9.5a2 2 0 0 1 1-1.7l6-3.6 6 3.6a2 2 0 0 1 1 1.7V20"/><path d="M5 20h14"/><path d="M9 20v-5h6v5"/><path d="M9 10.5l2 2 4-4"/></svg>
+    <span>打卡</span>
   </button>
   <button class="tab active" data-page="gacha">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17M3.5 12h17" opacity="0.3"/><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="9" stroke-dasharray="2 4"/></svg>
@@ -1390,7 +1541,8 @@ function save(){
     }
   }
 }
-migrateSnapshotsToIDB();   // 把老版本存在 localStorage 的快照搬到 IndexedDB，腾出主存档空间
+/* 快照迁移要等模块级常量初始化完（否则会撞上 let 的暂时性死区），所以延后一个宏任务 */
+try{ setTimeout(()=>{ try{ migrateSnapshotsToIDB(); }catch(e){} }, 0); }catch(e){}
 let state=loadState();
 /* 老数据里的重复 id：给多出来的那几张重新编号，否则删一张会连带删掉同 id 的其他张 */
 function dedupeCardIds(s){
@@ -1591,7 +1743,9 @@ function genRandomOffers(s){
       offers.push({id:uid(), kind:'action', name:p.src.name, energy:gain, price, used:0});
     }else{
       const cost=Math.max(5, p.src.cost||10);
-      const price=Math.max(cost+5, Math.round(cost*1.5));          // 比抽卡贵
+      // 阶梯选择费：越贵的卡，挑选溢价越低
+      const rate = cost<=10 ? 0.4 : cost<=30 ? 0.3 : cost<=60 ? 0.25 : 0.2;
+      const price=Math.max(1, Math.round(cost*rate));
       offers.push({id:uid(), kind:'wish', name:p.src.name, cost, price, used:0});
     }
   }
@@ -2030,7 +2184,7 @@ function renderShop(){
     return `<div class="shop-item">
       <div class="shop-info">
         <div class="shop-name"><span class="tag tag-wish" style="margin-right:6px">心愿</span>${escapeHtml(o.name)}</div>
-        <div class="shop-desc">买下即可享用 · 省去再扣 ${fmt(o.cost)} 能量 · 7 天保质</div>
+        <div class="shop-desc">买入 +${fmt(o.price)} 能量 · 使用时再付 ${fmt(o.cost)} 能量 · 7 天保质</div>
       </div>
       <button class="btn btn-sm btn-primary" data-buy-random="${o.id}" ${sold||state.energy<o.price?'disabled':''}>${sold?'已售出':o.price+' 能量'}</button>
     </div>`;
@@ -2317,8 +2471,16 @@ function focusBlockedAll(){
 
 function drawWishCardFromPool() {
     const energy = state.energy;
-    const threshold = Math.max(energy * 3, 15);
+    let threshold = Math.max(energy * 3, 15);
     const useFocus = focusApplies();
+    /* 打卡道具：幸运符 / 稀有符，各影响一次 */
+    try{
+      const c = (typeof ck==='function') ? ck() : null;
+      if(c && c.tok){
+        if(c.tok.lucky>0){ c.tok.lucky--; threshold = Math.max(8, Math.round(threshold*0.45)); }
+        else if(c.tok.rare>0){ c.tok.rare--; threshold = Math.round(threshold*3); }
+      }
+    }catch(e){}
 
     const build = (withFocus) => {
       let total=0;
@@ -2453,6 +2615,8 @@ function doDrawAction(useExtra){
 }
 
 function showReward(card,type){
+  /* 小动物分支：先播动画，结束后再走原逻辑 */
+  if(!window.__petSkip && window.__petOn && window.__petOn()){ window.__petReveal(card,type); return; }
   const modal=$('#rewardModal');
   const rewardCard=$('#rewardCard');
   const front=$('#rewardFront');
@@ -2516,10 +2680,19 @@ function completeAction(id,fromInv){
   const list=fromInv?state.actionInv:state.todayActions;
   const idx=list.findIndex(c=>c.id===id);if(idx<0)return;
   const card=list[idx];
-  state.energy+=card.energy;
-  record('completeAction','完成行动：'+card.name,card.energy,'',card,fromInv?'inv':'today'); 
+  /* 打卡道具：双倍能量（封顶 +30） */
+  let gain = card.energy;
+  try{
+    const c=(typeof ck==='function')?ck():null;
+    if(c && c.tok && c.tok.doubleEnergy>0){
+      c.tok.doubleEnergy--;
+      gain = card.energy + Math.min(30, card.energy);
+    }
+  }catch(e){}
+  state.energy+=gain;
+  record('completeAction','完成行动：'+card.name,gain,'',card,fromInv?'inv':'today'); 
   list.splice(idx,1);
-  save();render();toast(`完成！+${fmt(card.energy)} 能量`);
+  save();render();toast(`完成！+${fmt(gain)} 能量`+(gain>card.energy?'（双倍）':''));
 }
 function storeAction(id){
   const ac=ACTION_BASE_CAP+state.actionCapBonus;
@@ -2563,11 +2736,9 @@ function useWish(id,fromInv){
   }
 
   state.energy-=card.cost;
-  const refund=Math.round(card.cost*0.1*10)/10;
-  state.energy+=refund;
-  record('useWish','使用心愿：'+card.name,-(card.cost-refund),`返还 ${fmt(refund)}`,card,fromInv?'inv':'today');
+  record('useWish','使用心愿：'+card.name,-card.cost,'',card,fromInv?'inv':'today');
   list.splice(idx,1);
-  save();render();toast(`使用心愿：${card.name}，返还 ${fmt(refund)} 能量`);
+  save();render();toast(`使用心愿：${card.name}`);
 }
 function storeWish(id){
   if(state.wishInv.length>=WISH_CAP) return toast('心愿仓库已满');
@@ -2636,7 +2807,7 @@ function buyRandom(id){
     return;
   }
   if(state.wishInv.length>=WISH_CAP) return toast('心愿仓库已满');
-  const card={id:uid(),name:o.name,cost:o.cost,paid:true,fromShop:true,
+  const card={id:uid(),name:o.name,cost:o.cost,fromShop:true,
     expiresAt:Date.now()+WISH_SHELF_DAYS*86400000};
   state.energy-=o.price;
   state.wishInv.push(card);
@@ -4271,8 +4442,2769 @@ document.addEventListener('visibilitychange',()=>{ if(!document.hidden){ checkDa
 window.addEventListener('focus',()=>{ checkDailyRollover(); });
 window.addEventListener('pageshow',()=>{ checkDailyRollover(); });
 </script>
+<script>
+/* ==========================================================
+   打卡 + 金币兑换（外挂模块，不改动原有抽卡核心）
+   ========================================================== */
+
+/* ---------- 道具定义 ---------- */
+const CK_ITEMS = [
+  /* 抽卡 */
+  { id:'reroll',   n:'额外抽一次心愿', i:'🎲', c:'抽卡', p:5,  lim:['w',3],  e:'reroll' },
+  { id:'rerollA',  n:'额外抽一次行动', i:'🃏', c:'抽卡', p:4,  lim:['w',3],  e:'rerollAction' },
+  { id:'direct',   n:'定向抽券',   i:'🎯', c:'抽卡', p:10, lim:['w',1],  e:'direct' },
+  { id:'double',   n:'双抽券',     i:'🃏', c:'抽卡', p:18, lim:['w',1],  e:'doubleDraw' },
+  { id:'guarantee',n:'保底券',     i:'🔮', c:'抽卡', p:20, lim:['w',1],  e:'guarantee' },
+  { id:'lucky',    n:'幸运符',     i:'🍀', c:'抽卡', p:8,  lim:['w',2],  e:'lucky' },
+  { id:'rare',     n:'稀有符',     i:'💎', c:'抽卡', p:15, lim:['w',1],  e:'rare' },
+  /* 卡片 */
+  { id:'cwish',    n:'定制心愿卡', i:'✍️', c:'卡片', p:30, lim:['m',2],  e:'customWish' },
+  { id:'cact',     n:'定制行动卡', i:'✍️', c:'卡片', p:15, lim:['m',2],  e:'customAction' },
+  { id:'copy',     n:'复制券',     i:'📋', c:'卡片', p:20, lim:['w',1],  e:'copy' },
+  { id:'freeze',   n:'冻结券',     i:'❄️', c:'卡片', p:10, lim:['w',2],  e:'freeze' },
+  { id:'skin',     n:'卡面皮肤',   i:'🎨', c:'卡片', p:15, lim:['once'], e:'skin' },
+  /* 心愿 */
+  { id:'p10',      n:'9 折券',     i:'🏷️', c:'心愿', p:30, lim:['w',2],  e:'coupon10' },
+  { id:'p30',      n:'7 折券',     i:'🏷️', c:'心愿', p:70, lim:['m',1],  e:'coupon30' },
+  { id:'insure',   n:'心愿保险',   i:'🛡️', c:'心愿', p:10, lim:['w',1],  e:'insure' },
+  { id:'freewish', n:'免单券',     i:'🎫', c:'心愿', p:60, lim:['m',1],  e:'freeWish' },
+  /* 装饰 */
+  { id:'scene',    n:'场景更换',   i:'🌙', c:'装饰', p:25, lim:['once'], e:'scene' },
+  { id:'theme',    n:'主题配色',   i:'🎨', c:'装饰', p:20, lim:['once'], e:'theme' },
+  { id:'title',    n:'称号',       i:'🏅', c:'装饰', p:15, lim:['once'], e:'title' },
+  { id:'wname',    n:'女巫称呼',   i:'🗣️', c:'装饰', p:10, lim:['once'], e:'witchName' },
+
+  { id:'album',    n:'纪念册',     i:'📖', c:'装饰', p:20, lim:['once'], e:'album' },
+  /* 惊喜 */
+  { id:'box',      n:'盲盒',       i:'🎁', c:'惊喜', p:8,  lim:['w',2],  e:'blindbox' },
+  { id:'wheel',    n:'转盘',       i:'🎡', c:'惊喜', p:10, lim:['w',1],  e:'wheel' },
+  { id:'extra',    n:'神秘挑战',   i:'✨', c:'惊喜', p:15, lim:['w',1],  e:'extraChallenge' },
+  { id:'dbl',      n:'双倍能量',   i:'🔥', c:'惊喜', p:12, lim:['w',1],  e:'doubleEnergy' },
+  /* 女巫 */
+  { id:'tone',     n:'语气包',     i:'🎭', c:'女巫', p:15, lim:['once'], e:'tone' },
+  { id:'fx',       n:'抽卡特效',   i:'✨', c:'女巫', p:20, lim:['once'], e:'fx' },
+  { id:'letter',   n:'女巫来信',   i:'📮', c:'女巫', p:5,  lim:['w',2],  e:'letter' },
+  { id:'chreroll', n:'挑战重抽',   i:'🔄', c:'女巫', p:6,  lim:['w',1],  e:'challengeReroll' },
+  { id:'report',   n:'深度报告',   i:'📊', c:'女巫', p:25, lim:['once'], e:'report' }
+];
+const CK_MILESTONES = [ {d:3,coin:4}, {d:7,coin:10}, {d:21,coin:25}, {d:30,coin:60,energy:80}, {d:60,coin:60}, {d:90,coin:90} ];
+const CK_HABIT_NAMES = ['早睡','运动','读书'];
+const CK_SHOP_SIZE = 5;
+/* 效果已接通的商品；其余等下一版接通后再放进轮换 */
+const CK_READY = new Set(['lucky','rare','cwish','cact','scene','theme','title','wname','box','wheel','dbl','letter','chreroll','rerollA']);
+const CK_BATCH_DAYS = 3;
+
+/* ---------- 状态 ---------- */
+function ckNew(){
+  return {
+    habits: CK_HABIT_NAMES.map((n,i)=>({id:'h'+(i+1), name:n, streak:0, best:0, last:'', ms:{}})),
+    coins: 0,
+    log: {},
+    week: '',
+    ch: [],
+    chBonus: false,
+    shopBatch: -1,
+    shop: [],
+    bought: {},
+    specialUsed: false,
+    used: {},
+    own: {},
+    tok: {},
+    coupons: [],
+    title: '',
+    witchName: '',
+    tone: 'normal',
+    scene: '',
+    theme: '',
+    cardFx: false,
+    deepReport: false,
+    album: false,
+    skin: false
+  };
+}
+function ck(){
+  if(!state.checkin || typeof state.checkin!=='object') state.checkin = ckNew();
+  const c = state.checkin;
+  if(!Array.isArray(c.habits) || !c.habits.length) c.habits = ckNew().habits;
+  ['coins','week','ch','shopBatch','shop','bought','used','own','tok','coupons'].forEach(k=>{
+    if(c[k]===undefined) c[k] = ckNew()[k];
+  });
+  if(!c.log || typeof c.log!=='object') c.log={};
+  if(!Array.isArray(c.ch)) c.ch=[];
+  if(!Array.isArray(c.shop)) c.shop=[];
+  if(!Array.isArray(c.coupons)) c.coupons=[];
+  if(!c.tok || typeof c.tok!=='object') c.tok={};
+  if(!c.used || typeof c.used!=='object') c.used={};
+  if(!c.own || typeof c.own!=='object') c.own={};
+  if(!c.bought || typeof c.bought!=='object') c.bought={};
+  return c;
+}
+function ckYest(){
+  const d=new Date(); d.setDate(d.getDate()-1);
+  return dateStr(d);
+}
+function ckDayKey(){ return today(); }
+
+/* ---------- 固定挑战 ---------- */
+function habitCheckin(id){
+  const c=ck();
+  const h=c.habits.find(x=>x.id===id);
+  if(!h) return;
+  const t=today();
+  if(h.last===t) return toast('今天已经打过卡了');
+  h.streak = (h.last===ckYest()) ? (h.streak+1) : 1;
+  if(h.streak>h.best) h.best=h.streak;
+  h.last=t;
+  // 连续满 3 天才开始给币；第 1、2 天只记连续天数
+  c.coins += 1;
+  if(!c.log[t]) c.log[t]=[];
+  if(c.log[t].indexOf(id)<0) c.log[t].push(id);
+  // 里程碑
+  const ms=CK_MILESTONES.find(m=>m.d===h.streak);
+  let msg = '打卡成功 +1 金币';
+  if(ms && !h.ms[h.streak]){
+    h.ms[h.streak]=true;
+    if(ms.coin){ c.coins += ms.coin; msg=`连续 ${ms.d} 天！+1 币，里程碑再 +${ms.coin} 币`; }
+    else if(ms.energy){ state.energy += ms.energy; msg=`连续 ${ms.d} 天！里程碑 +${ms.energy} 能量`; }
+  }
+  // 只保留最近 120 天的打卡记录
+  const keys=Object.keys(c.log).sort();
+  while(keys.length>120) delete c.log[keys.shift()];
+  save(); render(); toast(msg);
+}
+
+/* ---------- 每周挑战 ---------- */
+function ckWeekDirs(){
+  const dirs=new Set();
+  (state.wishPool||[]).forEach(c=>{ const t=String(c.tag||'').trim(); if(t) dirs.add(t); });
+  (state.actionPool||[]).forEach(c=>{ const t=String(c.tag||'').trim(); if(t) dirs.add(t); });
+  let list=Array.from(dirs);
+  // 侧重里被屏蔽的方向不选；有侧重时优先加强/正常
+  if(focusApplies()){
+    const w=state.focus.weights||{};
+    const allowed=list.filter(d=>{
+      const v=w[d];
+      return !(typeof v==='number' && v<=0);
+    });
+    if(allowed.length) list=allowed;
+  }
+  return list;
+}
+/* 随机挑战任务库：{t 任务, n 目标次数, d 关联方向关键词(可空)} */
+const CK_TASKS = [
+  {t:'22:30 前睡觉', n:2, d:'睡眠'}, {t:'走够 6000 步', n:3, d:'运动'},
+  {t:'读 20 页书', n:3, d:'阅读'}, {t:'喝够 8 杯水', n:3, d:''},
+  {t:'出门散步 20 分钟', n:2, d:'出门'}, {t:'不点外卖', n:2, d:''},
+  {t:'整理桌面', n:1, d:'家务'}, {t:'给朋友发条消息', n:1, d:'社交'},
+  {t:'晒太阳 10 分钟', n:2, d:''}, {t:'写 3 行日记', n:3, d:''},
+  {t:'拉伸 10 分钟', n:3, d:'运动'}, {t:'学 15 分钟新东西', n:2, d:'学习'},
+  {t:'早睡 30 分钟', n:2, d:'睡眠'}, {t:'做一顿饭', n:1, d:'饮食'},
+  {t:'清理手机相册', n:1, d:'整理'}, {t:'主动夸自己一次', n:1, d:''},
+  {t:'不看短视频 1 小时', n:2, d:''}, {t:'步行代替一次短途乘车', n:2, d:''},
+  {t:'读 10 分钟专业内容', n:2, d:'学习'}, {t:'睡前不刷手机', n:2, d:'睡眠'},
+  {t:'给房间通通风', n:1, d:'家务'}, {t:'做 20 个深蹲', n:2, d:'运动'},
+  {t:'约一个人吃饭/散步', n:1, d:'社交'}, {t:'把待办清掉一件', n:1, d:'整理'}
+];
+function ckBuildChallenges(){
+  // 优先从行动卡池里筛选，池子空才退回内置任务
+  const pool = (typeof poolOf==='function' ? poolOf('action') : state.actionPool) || [];
+  let cards = pool.filter(c=>c && c.name);
+  const focusDirs = focusApplies() ? Object.keys(state.focus.weights||{}).filter(k=>{
+    const v=state.focus.weights[k]; return typeof v==='number' && v>0;
+  }) : [];
+  if(focusDirs.length){
+    const hit = cards.filter(c => focusDirs.some(f => String(c.tag||'').indexOf(f)>=0 || f.indexOf(String(c.tag||''))>=0));
+    if(hit.length>=2) cards = hit.concat(cards.filter(c=>hit.indexOf(c)<0));
+  }
+  cards = cards.sort(()=>Math.random()-.5);
+  if(cards.length){
+    const n = Math.min(2 + Math.floor(Math.random()*3), cards.length);
+    return cards.slice(0,n).map((c,i)=>({
+      id:'k'+i, text:c.name, target:4, done:0, claimed:false
+    }));
+  }
+  const t = CK_TASKS.slice().sort(()=>Math.random()-.5);
+  return t.slice(0, 2 + Math.floor(Math.random()*3)).map((x,i)=>({ id:'c'+i, text:x.t, target:4, done:0, claimed:false }));
+}function ckDoChallenge(i){
+  const c=ck();
+  const ch=c.ch[i];
+  if(!ch || ch.claimed) return;
+  if((ch.done||0) >= ch.target) return toast('已完成，去领币');
+  ch.done=(ch.done||0)+1;
+  save(); render();
+  toast(ch.done>=ch.target ? '目标达成，去领币' : ('完成一次 '+ch.done+'/'+ch.target));
+}
+function ckClaimChallenge(i){
+  const c=ck();
+  const ch=c.ch[i];
+  if(!ch || ch.claimed) return;
+  if((ch.done||0) < ch.target) return toast('还没完成');
+  ch.claimed=true;
+  const doneCount = c.ch.filter(function(x){ return x.claimed; }).length; /* 含本次 */
+  const reward = (doneCount-1)*2;                                          /* 第1个0、第2个2、第3个4… */
+  if(reward>0) c.coins += reward;
+  const msg = reward>0 ? ('挑战完成 +'+reward+' 金币') : '第 1 个挑战完成（从第 2 个开始给金币）';
+  save(); render(); toast(msg);
+}function ckRefreshWeek(force){
+  const c=ck();
+  const wk=Math.floor(Date.now()/86400000/4);
+  const bad = !Array.isArray(c.ch) || c.ch.some(x=>!x || !x.text);
+  if(!force && !bad && c.week===wk && c.ch.length) return;
+  c.week=wk;
+  c.ch=ckBuildChallenges();
+  c.chBonus=false;
+  save();
+}function ckRerollChallenges(){
+  const c=ck();
+  c.ch=ckBuildChallenges();
+  c.chBonus=false;
+  const names=c.ch.map(x=>x.text||'').join(' / ');
+  save(); render(); toast('已换成：'+names);
+}
+
+/* ---------- 兑换商店 ---------- */
+function ckBatch(){
+  const d=parseDay(today()).getTime();
+  return Math.floor(d/86400000/CK_BATCH_DAYS);
+}
+function ckRefreshShop(){
+  const c=ck();
+  const b=ckBatch();
+  if(c.shopBatch===b && c.shop.length) return;
+  // 只上架"效果已经接通"的商品，避免买到没反应的券
+  const pool=CK_ITEMS.filter(it=>CK_READY.has(it.id) && !(it.lim[0]==='once' && c.own[it.id]));
+  const pick=[];
+  const shuffled=pool.slice().sort(()=>Math.random()-.5);
+  for(const it of shuffled){
+    if(pick.length>=CK_SHOP_SIZE) break;
+    if(pick.some(p=>p.id===it.id)) continue;
+    pick.push(it);
+  }
+  // 保证至少一个便宜货
+  if(!pick.some(p=>p.p<=10)){
+    const cheap=pool.filter(it=>it.p<=10 && !pick.some(p=>p.id===it.id));
+    if(cheap.length) pick[pick.length-1]=cheap[Math.floor(Math.random()*cheap.length)];
+  }
+  const specialIdx=Math.floor(Math.random()*pick.length);
+  c.shop=pick.map((it,idx)=>({ id:it.id, special: idx===specialIdx }));
+  c.shopBatch=b;
+  c.bought={};
+  c.specialUsed=false;
+  save();
+}
+function ckItemById(id){ return CK_ITEMS.find(x=>x.id===id)||null; }
+function ckPrice(entry){
+  const it=ckItemById(entry.id); if(!it) return 0;
+  return entry.special ? Math.max(1, Math.floor(it.p*0.7)) : it.p;
+}
+function ckLimitKey(it){
+  const c=ck();
+  const w=getWeekStart(), m=today().slice(0,7);
+  const u=c.used[it.id]||{w:'',wn:0,m:'',mn:0,total:0};
+  if(u.w!==w){ u.w=w; u.wn=0; }
+  if(u.m!==m){ u.m=m; u.mn=0; }
+  c.used[it.id]=u;
+  return {
+    can(){
+      if(it.lim[0]==='once') return u.total<1;
+      if(it.lim[0]==='w') return u.wn<it.lim[1];
+      if(it.lim[0]==='m') return u.mn<it.lim[1];
+      return true;
+    },
+    take(){
+      u.total++;
+      if(it.lim[0]==='w') u.wn++;
+      if(it.lim[0]==='m') u.mn++;
+    },
+    left(){
+      if(it.lim[0]==='once') return Math.max(0,1-u.total);
+      if(it.lim[0]==='w') return Math.max(0,it.lim[1]-u.wn);
+      if(it.lim[0]==='m') return Math.max(0,it.lim[1]-u.mn);
+      return 99;
+    }
+  };
+}
+function ckBuy(id){
+  const c=ck();
+  const entry=c.shop.find(x=>x.id===id);
+  if(!entry) return;
+  const it=ckItemById(id);
+  if(!it) return;
+  if(entry.special && c.bought[entry.id]) return toast('特价只能买一次，去别的商品看看');
+  if(entry.special && c.bought[entry.id]) return toast('特价只能买一次，去别的商品看看');
+  const lim=ckLimitKey(it);
+  if(!lim.can()) return toast('这个商品本周/本月的次数已用完');
+  const price=ckPrice(entry);
+  if(c.coins < price) return toast('金币不够（还差 '+(price-c.coins)+' 币）');
+  c.coins -= price;
+  c.bought[id]=true;
+  if(entry.special){ c.specialUsed=true; entry.bought=true; }
+  lim.take();
+  if(entry.special){ c.specialUsed=true; entry.bought=true; }
+  ckApply(it);
+  save(); render();
+  const n=c.coins;
+  toast(`已兑换「${it.n}」，剩 ${n} 币`);
+}
+
+/* ---------- 商品效果 ---------- */
+function ckGrant(item, num){
+  const c=ck();
+  c.tok[item]=(c.tok[item]||0)+num;
+}
+function ckApply(it){
+  const c=ck();
+  switch(it.e){
+    case 'reroll': case 'direct': case 'doubleDraw': case 'guarantee':
+    case 'lucky': case 'rare': case 'copy': case 'freeze': case 'insure':
+    case 'freeWish': case 'doubleEnergy': case 'extraChallenge':
+      ckGrant(it.e, 1);
+      return;
+    case 'coupon10': c.coupons.push({p:0.1, cap:30}); return;
+    case 'coupon30': c.coupons.push({p:0.3, cap:80}); return;
+    case 'skin': c.skin=true; return;
+    case 'scene': ckPickScene(); return;
+    case 'theme': c.own['theme']=true; c.propTheme=true; toast('主题道具已放入「仓库 → 道具」'); return;
+    case 'title': ckSetTitle(); return;
+    case 'witchName': ckWitchName(); return;
+    case 'album': c.album=true; toast('纪念册已解锁（在记录页）'); return;
+    case 'report': c.deepReport=true; toast('深度报告已解锁（在记录页）'); return;
+    case 'tone': ckTone(); return;
+    case 'fx': c.cardFx=true; toast('抽卡特效已开启'); return;
+    case 'letter': ckLetter(); return;
+    case 'challengeReroll': ckRerollChallenges(); return;
+    case 'blindbox': ckBlindBox(); return;
+    case 'wheel': ckWheel(); return;
+    case 'share': ckShare(); return;
+    case 'customWish': ckCustomCard('wish'); return;
+    case 'customAction': ckCustomCard('action'); return;
+    default: return;
+  }
+}
+function ckPickCard(title, list, cb){
+  const rows=list.map(function(c,i){
+    const v=fmt(c.cost||c.energy||0);
+    let d=''; try{ d=' · '+daysLeft(c.expiresAt); }catch(e){}
+    return '<div class="coin-item"><div class="coin-item-main"><span class="coin-item-name">'+escapeHtml(c.name)+'</span><span class="coin-item-desc">'+v+d+'</span></div><button class="btn btn-sm btn-primary" data-pick="'+i+'">选它</button></div>';
+  }).join('');
+  ckModal(title, rows);
+  const m=document.getElementById('ckModal');
+  if(!m) return;
+  m.querySelectorAll('[data-pick]').forEach(function(b){
+    b.onclick=function(){ const card=list[parseInt(b.dataset.pick,10)]; m.remove(); cb(card); };
+  });
+}function ckPickScene(){
+  const c=ck();
+  const names=['神秘森林','熬魔药','女巫的小屋','骑士来访','观星','小动物们'];
+  const pick=prompt('选一套女巫背景（1-6 或留空恢复随机）：\n'+names.map((n,i)=>(i+1)+'. '+n).join('\n'),'1');
+  if(pick===null) return;
+  const idx=parseInt(pick,10);
+  c.scene = (idx>=1&&idx<=6) ? {d:today(), i:idx} : null;
+  save(); render();
+  toast(c.scene?('今天用「'+names[idx-1]+'」，明天自动恢复随机'):'已恢复每天随机');
+}
+const CK_THEMES=[['','默认蓝'],['theme-lilac','雾紫'],['theme-sky','晴空'],['theme-mint','薄荷'],['theme-pink','樱粉'],['theme-rose','玫瑰'],['theme-amber','琥珀'],['theme-ink','墨黑'],['theme-snow','素白']];
+function ckThemePicker(){
+  const c=ck();
+  if(c.theme && c.theme.k && c.theme.until && Date.now()<c.theme.until){
+    const d=Math.max(1,Math.ceil((c.theme.until-Date.now())/86400000));
+    return toast('已经选好了，'+d+' 天后才能再换');
+  }
+  if(!c.propTheme) return toast('没有可用的主题道具，先去兑换');
+  const cur=(c.theme&&c.theme.k)||'';
+  const sw=CK_THEMES.map(function(o){
+    const on=cur===o[0];
+    return '<button data-th="'+o[0]+'" style="flex:1;min-width:72px;padding:10px 8px;border-radius:10px;border:1.5px solid '+(on?'#7FA8CE':'#E3E9F0')+';background:'+(on?'#EAF2FA':'#fff')+';font-weight:800;font-size:13px;font-family:inherit">'+o[1]+'</button>';
+  }).join('');
+  ckModal('🎨 选择配色', '<div style="color:#7A8798;font-size:13px;margin-bottom:10px">选好后 3 天内有效，到期自动回到默认蓝。</div><div style="display:flex;flex-wrap:wrap;gap:8px">'+sw+'</div>');
+  const m=document.getElementById('ckModal');
+  if(m) m.querySelectorAll('[data-th]').forEach(function(b){
+    b.onclick=function(){
+      const cc=ck();
+      if(!b.dataset.th){ cc.theme=null; cc.propTheme=false; }
+      else { cc.theme={k:b.dataset.th, until:Date.now()+3*86400000}; cc.propTheme=false; }
+      cc.own['theme']=true;
+      ckApplyTheme(); save(); render();
+      m.remove();
+      toast(b.dataset.th?('主题：'+b.textContent+'（3 天）'):'已恢复默认蓝');
+    };
+  });
+}
+function ckPickTheme(){
+  const c=ck();
+  const list=['', 'theme-pink', 'theme-mint'];
+  const names={'':'默认蓝','theme-pink':'暖粉','theme-mint':'薄荷'};
+  const cur=list.indexOf(c.theme||'');
+  const next=list[(cur+1)%list.length];
+  c.theme=next;
+  ckApplyTheme();
+  save(); render();
+  toast('主题已切换：'+names[next]);
+}function ckApplyTheme(){
+  const c=ck();
+  const root=document.documentElement;
+  const all=['theme-pink','theme-mint','theme-rose','theme-lilac','theme-sky','theme-amber','theme-ink','theme-snow'];
+  all.forEach(k=>root.classList.remove(k));
+  const t=c.theme;
+  if(!t || !t.k) return;
+  if(t.until && Date.now()>t.until){ c.theme=null; save(); return; }
+  root.classList.add(t.k);
+}
+function ckSetTitle(){
+  const c=ck();
+  const t=prompt('给自己起一个称号（最多 6 个字）：', c.title||'');
+  if(t===null) return;
+  c.title=String(t).trim().slice(0,6);
+  save(); render(); toast(c.title?('称号已设为「'+c.title+'」'):'已清除称号');
+}
+function ckWitchName(){
+  const c=ck();
+  const t=prompt('让女巫怎么称呼你？（最多 6 个字）：', c.witchName||'');
+  if(t===null) return;
+  c.witchName=String(t).trim().slice(0,6);
+  save(); render(); toast('女巫记住啦');
+}
+function ckTone(){
+  const c=ck();
+  const pick=prompt('选女巫说话风格：\n1. 温柔\n2. 毒舌\n3. 中二','1');
+  if(pick===null) return;
+  c.tone = { k:(pick==='2'?'sharp' : pick==='3'?'chuuni' : 'gentle'), until: Date.now()+7*86400000 };
+  save(); render(); toast('语气已切换');
+}
+function ckLetter(){
+  const c=ck();
+  const name=c.witchName||'旅人';
+  const done=(state.ledger||[]).filter(r=>r.type==='completeAction').length;
+  const days=Object.keys(c.log||{}).length;
+  const coins=c.coins;
+  const lines=[
+    '你已经完成 '+done+' 件行动，打卡 '+days+' 天。数字不重要，别停下来就好。',
+    '今天抽到的卡，不管是哪张，都是你现在能接住的。',
+    '攒着 '+coins+' 金币，想换什么就换，别舍不得。',
+    '累的时候可以什么都不做，女巫不会扣你分。',
+    '你在慢慢变成想成为的人，只是自己看不见。'
+  ];
+  const body=lines.sort(function(){return Math.random()-.5;}).slice(0,2).join('<br><br>');
+  ckModal('📮 女巫来信', '<div style="line-height:2;font-size:14px">'
+    + '<div style="font-weight:800;margin-bottom:8px">' + escapeHtml(name) + '：</div>'
+    + body
+    + '<div style="margin-top:14px;color:#9AA7B8;font-size:12px;text-align:right">—— 心愿女巫</div></div>');
+}function ckBlindBox(){
+  const c=ck();
+  const roll=Math.random();
+  if(roll<0.35){ c.coins+=6; toast('盲盒开出 6 金币'); }
+  else if(roll<0.65){ ckGrant('reroll',1); toast('盲盒开出 1 张重抽券'); }
+  else if(roll<0.85){ ckGrant('freeze',1); toast('盲盒开出 1 张冻结券'); }
+  else { ckGrant('dbl',1); toast('盲盒开出 1 张双倍能量'); }
+  save(); render();
+}
+function ckWheel(){
+  const c=ck();
+  ckModal('🎡 幸运转盘','<div id="wheelFace" style="text-align:center;font-size:52px;padding:18px 0">🎡</div><div id="wheelMsg" style="text-align:center;color:#7A8798;font-size:14px">转动中…</div>');
+  const face=document.getElementById('wheelFace');
+  const msg=document.getElementById('wheelMsg');
+  const ICONS=['🎡','🎁','🍀','💎','🔥','🃏','❄️'];
+  let n=0;
+  const timer=setInterval(function(){
+    n++;
+    if(face) face.textContent=ICONS[n%ICONS.length];
+    if(n>=14){
+      clearInterval(timer);
+      const prizes=[
+        {t:'6 金币', f:function(){ c.coins+=6; }},
+        {t:'10 金币', f:function(){ c.coins+=10; }},
+        {t:'1 张额外抽一次心愿', f:function(){ c.tok.reroll=(c.tok.reroll||0)+1; }},
+        {t:'1 张冻结券', f:function(){ c.tok.freeze=(c.tok.freeze||0)+1; }},
+        {t:'1 张双倍能量', f:function(){ c.tok.doubleEnergy=(c.tok.doubleEnergy||0)+1; }},
+        {t:'3 金币（谢谢参与）', f:function(){ c.coins+=3; }}
+      ];
+      const pz=prizes[Math.floor(Math.random()*prizes.length)];
+      try{ pz.f(); }catch(e){}
+      save(); render();
+      if(face) face.textContent='🎉';
+      if(msg) msg.innerHTML='<b style="font-size:16px;color:#2C3A47">'+pz.t+'</b>';
+      toast('转盘：'+pz.t);
+    }
+  },70);
+}
+function ckShare(){
+  const c=ck();
+  const W=600, H=820;
+  const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+  const g=cv.getContext('2d');
+  function rr(x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+
+  /* 背景 */
+  const bg=g.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#F2F6FB'); bg.addColorStop(1,'#E4ECF6');
+  g.fillStyle=bg; g.fillRect(0,0,W,H);
+
+  /* 主卡片 */
+  g.save(); g.shadowColor='rgba(120,140,170,.18)'; g.shadowBlur=24; g.shadowOffsetY=8;
+  g.fillStyle='#FFFFFF'; rr(40,40,W-80,H-80,24); g.fill(); g.restore();
+
+  /* 标题 */
+  g.fillStyle='#2C3A47'; g.font='bold 34px -apple-system,"Microsoft YaHei",sans-serif';
+  g.fillText('心愿抽卡',76,120);
+  g.fillStyle='#9AA7B8'; g.font='16px -apple-system,"Microsoft YaHei",sans-serif';
+  g.fillText(today(),76,150);
+
+  /* 分割线 */
+  g.strokeStyle='#EEF2F7'; g.lineWidth=1; g.beginPath(); g.moveTo(76,176); g.lineTo(W-76,176); g.stroke();
+
+  /* 数据三格 */
+  const days=Object.keys(c.log||{}).length;
+  const best=Math.max.apply(null,[0].concat(c.habits.map(h=>h.best||0)));
+  const cells=[['打卡',days+' 天'],['连续',best+' 天'],['金币',c.coins+'']];
+  cells.forEach(function(cell,i){
+    const x=76+i*150;
+    g.fillStyle='#F7F9FC'; rr(x,200,132,84,14); g.fill();
+    g.fillStyle='#2C3A47'; g.font='bold 26px -apple-system,"Microsoft YaHei",sans-serif';
+    g.fillText(cell[1],x+16,244);
+    g.fillStyle='#9AA7B8'; g.font='14px -apple-system,"Microsoft YaHei",sans-serif';
+    g.fillText(cell[0],x+16,268);
+  });
+
+  /* 今日心愿 */
+  const last=(state.todayWishes||[]).slice(-1)[0];
+  if(last){
+    g.fillStyle='#EAF2FA'; rr(76,312,W-152,150,16); g.fill();
+    g.fillStyle='#5B7FA6'; g.font='bold 15px -apple-system,"Microsoft YaHei",sans-serif';
+    g.fillText('今日心愿',98,344);
+    g.fillStyle='#2C3A47'; g.font='bold 22px -apple-system,"Microsoft YaHei",sans-serif';
+    const nm=String(last.name).slice(0,14);
+    g.fillText(nm,98,384);
+    g.fillStyle='#7FA8CE'; g.font='bold 18px -apple-system,"Microsoft YaHei",sans-serif';
+    g.fillText(fmt(last.cost)+' 能量',98,418);
+  }
+
+  /* 习惯 */
+  let y=last?500:330;
+  g.fillStyle='#2C3A47'; g.font='bold 16px -apple-system,"Microsoft YaHei",sans-serif';
+  g.fillText('正在坚持',76,y); y+=30;
+  c.habits.forEach(function(hb){
+    g.fillStyle='#5B6B7B'; g.font='15px -apple-system,"Microsoft YaHei",sans-serif';
+    g.fillText(hb.name,76,y);
+    g.fillStyle='#9AA7B8';
+    g.fillText('连续 '+hb.streak+' 天',W-200,y);
+    y+=28;
+  });
+
+  /* 页脚 */
+  g.fillStyle='#B9C4D2'; g.font='14px -apple-system,"Microsoft YaHei",sans-serif';
+  g.fillText('—— 心愿女巫 ✨',W-220,H-70);
+
+  const a=document.createElement('a');
+  a.href=cv.toDataURL('image/png');
+  a.download='心愿抽卡-'+today()+'.png';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>a.remove(),800);
+  toast('分享图已生成');
+}function ckCustomCard(kind){
+  const name=prompt('给这张卡起个名字：','');
+  if(!name) return;
+  const nm=String(name).trim().slice(0,40);
+  const val=parseInt(prompt(kind==='wish'?'消耗多少能量？（5-250）':'完成后获得多少能量？（1-30）', kind==='wish'?'20':'5'),10);
+  if(isNaN(val)) return;
+  if(kind==='wish'){
+    const card={id:uid(), name:nm, cost:clamp(val,5,250), tag:'', expiresAt:Date.now()+WISH_SHELF_DAYS*86400000};
+    state.todayWishes.push(card);
+    record('customWish','定制心愿卡：'+nm,0,'',card,'today');
+  }else{
+    const card={id:uid(), name:nm, energy:clamp(val,1,30), tag:'', expiresAt:Date.now()+ACTION_SHELF_DAYS*86400000};
+    state.todayActions.push(card);
+    record('customAction','定制行动卡：'+nm,0,'',card,'today');
+  }
+  save(); render(); toast('已加到「今日」列表');
+}
+
+/* ---------- 渲染：打卡页 ---------- */
+let ckSeg='today';
+function renderCheckin(){
+  const c=ck();
+  ckRefreshWeek();
+  ckRefreshShop();
+  const page=document.getElementById('page-checkin');
+  if(!page) return;
+
+  /* 固定挑战 */
+  const box=document.getElementById('habitList');
+  if(box){
+    box.innerHTML=c.habits.map(h=>{
+      const done=h.last===today();
+      const cls=done?'habit-row done':'habit-row';
+      return `<div class="${cls}">
+        <span class="habit-name">${escapeHtml(h.name)}</span>
+        <span class="habit-meta">${done?'已打卡':'未打卡'}${h.streak?(' · 连续 '+h.streak+' 天'):''}</span>
+        <button class="btn btn-sm ${done?'btn-ghost':'btn-mint'}" data-habit="${h.id}" ${done?'disabled':''}>${done?'✓':'打卡'}</button>
+      </div>`;
+    }).join('');
+    box.querySelectorAll('[data-habit]').forEach(b=>{
+      b.onclick=()=>habitCheckin(b.dataset.habit);
+    });
+  }
+  const ssub=document.getElementById('checkinStreakSub');
+  if(ssub){
+    const doneCount=c.habits.filter(h=>h.last===today()).length;
+    ssub.textContent = doneCount? `今天已打 ${doneCount}/${c.habits.length}` : '今天还没打卡';
+  }
+
+  /* 挑战 */
+  const chBox=document.getElementById('challengeList');
+  if(chBox){
+    if(!c.ch.length){
+      chBox.innerHTML='<div class="empty">本周挑战还没生成</div>';
+    }else{
+      chBox.innerHTML=c.ch.map((x,i)=>{
+        const done=x.done||0;
+        const pct=Math.min(100, Math.round(done/x.target*100));
+        const ok=done>=x.target;
+        const todayDone = (x.day===today());
+        const btn = x.claimed
+          ? '<button class="btn btn-sm btn-ghost" disabled>本轮已完成</button>'
+          : (ok
+              ? `<button class="btn btn-sm btn-primary" data-claim="${i}">领取奖励</button>`
+              : (todayDone
+                  ? '<button class="btn btn-sm btn-ghost" disabled>今日已完成</button>'
+                  : `<button class="btn btn-sm btn-mint" data-do="${i}">完成 +1</button>`));
+        return `<div class="challenge-row">
+          <div class="challenge-top">
+            <span class="challenge-name">${escapeHtml(x.text||x.dir||'')}</span>
+            <span class="challenge-num">${done}/${x.target} · 累计 ${x.total||0} 次</span>
+          </div>
+          <div class="challenge-bar"><i style="width:${pct}%"></i></div>
+          ${btn}
+        </div>`;
+      }).join('');
+      chBox.querySelectorAll('[data-claim]').forEach(b=>{
+        b.onclick=()=>ckClaimChallenge(parseInt(b.dataset.claim,10));
+      });
+      chBox.querySelectorAll('[data-do]').forEach(b=>{
+        b.onclick=()=>ckDoChallenge(parseInt(b.dataset.do,10));
+      });
+    }    const csub=document.getElementById('challengeSub');
+    if(csub){
+      const claimed=c.ch.filter(x=>x.claimed).length;
+      csub.textContent=`本周 ${claimed}/${c.ch.length} 已完成`;
+    }
+  }
+
+  /* 币 */
+  const coinSub=document.getElementById('coinSub');
+  if(coinSub) coinSub.textContent=c.coins+' 币';
+
+  /* 商店 */
+  const shopList=document.getElementById('coinShopList');
+  if(shopList){
+    shopList.innerHTML=c.shop.map(entry=>{
+      const it=ckItemById(entry.id); if(!it) return '';
+      const price=ckPrice(entry);
+      const lim=ckLimitKey(it);
+      const left=lim.left();
+      const bought=entry.special && !!c.bought[entry.id];
+      const canBuy=!bought && left>0 && c.coins>=price;
+      return `<div class="coin-item">
+        <div class="coin-item-main">
+          <span class="coin-item-name">${it.i} ${escapeHtml(it.n)}${entry.special?' <b class="coin-special">特价</b>':''}</span>
+          <span class="coin-item-desc">${it.c} · 剩余 ${left} 次</span>
+        </div>
+        <button class="btn btn-sm ${canBuy?'btn-primary':'btn-ghost'}" data-buy="${entry.id}" ${canBuy?'':'disabled'}>${bought?'已买':price+' 币'}</button>
+      </div>`;
+    }).join('')||'<div class="empty">这批商品卖完了</div>';
+    shopList.querySelectorAll('[data-buy]').forEach(b=>{
+      b.onclick=()=>ckBuy(b.dataset.buy);
+    });
+  }
+  const rsub=document.getElementById('shopRefreshSub');
+  if(rsub){
+    const d=parseDay(today()).getTime();
+    const left=CK_BATCH_DAYS-(Math.floor(d/86400000)%CK_BATCH_DAYS);
+    rsub.textContent='还有 '+left+' 天刷新';
+  }
+}
+
+/* ---------- 分段切换 ---------- */
+function ckSetSeg(seg){
+  ckSeg=seg;
+  const t=document.getElementById('checkinToday'), s=document.getElementById('checkinShop');
+  if(t) t.style.display = seg==='today'?'':'none';
+  if(s) s.style.display = seg==='shop'?'':'none';
+  document.querySelectorAll('#checkinSeg .seg-btn').forEach(b=>{
+    b.classList.toggle('on', b.dataset.cseg===seg);
+  });
+  renderCheckin();
+}
+document.querySelectorAll('#checkinSeg .seg-btn').forEach(b=>{
+  b.onclick=()=>ckSetSeg(b.dataset.cseg);
+});
+
+/* 抽卡页分段 */
+function drawSetSeg(seg){
+  const w=document.getElementById('paneWish'), a=document.getElementById('paneAction');
+  if(!w||!a) return;
+  w.style.display = seg==='wish'?'':'none';
+  a.style.display = seg==='action'?'':'none';
+  document.querySelectorAll('#drawSeg .seg-btn').forEach(b=>{
+    b.classList.toggle('on', b.dataset.seg===seg);
+  });
+  localStorage.setItem('wish-gacha-draw-seg', seg);
+}
+document.querySelectorAll('#drawSeg .seg-btn').forEach(b=>{
+  b.onclick=()=>drawSetSeg(b.dataset.seg);
+});
+
+/* ---------- 接入原有渲染 ---------- */
+(function(){
+  const r0 = window.render;
+  window.render = function(){
+    r0.apply(null, arguments);
+    try{ renderCheckin(); }catch(e){}
+  };
+  try{
+    drawSetSeg(localStorage.getItem('wish-gacha-draw-seg')||'wish');
+    ckApplyTheme();
+    renderCheckin();
+  }catch(e){}
+})();
+
+/* 切到打卡页时重绘 */
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    var mm=document.getElementById('ckModal'); if(mm) mm.remove();
+    if(t.dataset.page==='checkin'){ try{ renderCheckin(); }catch(e){} } });
+});</script>
+<script>
+/* ==========================================================
+   第二阶段：接通剩余道具 + 道具面板 + PWA
+   ========================================================== */
+
+/* 把新接通的商品加进轮换 */
+['reroll','direct','double','guarantee','copy','freeze','p10','p30','insure','freewish',
+ 'share','album','extra','tone','fx','report','skin'].forEach(id=>CK_READY.add(id));
+
+/* ---------- 道具使用 ---------- */
+function ckTokenList(){
+  const c=ck();
+  const names={ rerollA:'🃏 额外抽一次行动', reroll:'🎲 额外抽一次心愿', direct:'🎯 定向抽券', doubleDraw:'🃏 双抽券',
+    guarantee:'🔮 保底券', copy:'📋 复制券', freeze:'❄️ 冻结券',
+    insure:'🛡️ 心愿保险', freeWish:'🎫 免单券', extraChallenge:'✨ 神秘挑战',
+    doubleEnergy:'🔥 双倍能量', lucky:'🍀 幸运符', rare:'💎 稀有符' };
+  return Object.keys(names).filter(k=>(c.tok[k]||0)>0).map(k=>({k, n:names[k], v:c.tok[k]}));
+}
+function ckUseToken(k){
+  const c=ck();
+  if(!(c.tok[k]>0)) return toast('没有这个道具');
+  /* 额外抽一次行动：放在最前面，确保一定命中 */
+  if(k==='rerollAction'){
+    const pool=state.actionPool||[];
+    if(!pool.length) return toast('行动卡池是空的');
+    const src=pool[Math.floor(Math.random()*pool.length)];
+    const card={id:uid(),name:src.name,energy:src.energy,tag:src.tag||'',expiresAt:Date.now()+ACTION_SHELF_DAYS*86400000};
+    state.todayActions.push(card);
+    c.tok[k]--;
+    save(); render(); toast('已加入今日行动：'+card.name);
+    return;
+  }
+  const t=today();
+  /* 抽卡类：直接抽一张加入今日 */
+  if(k==='reroll' || k==='doubleDraw' || k==='guarantee' || k==='direct'){
+    let card=null;
+    if(k==='direct'){
+      const dirs=ckWeekDirs();
+      if(!dirs.length) return toast('还没有方向，先去卡池整理');
+      const pick=prompt('要哪个方向？\n'+dirs.map((d,i)=>(i+1)+'. '+d).join('\n'),'1');
+      if(pick===null) return;
+      const dir=dirs[(parseInt(pick,10)||1)-1];
+      if(!dir) return;
+      const list=state.wishPool.filter(x=>String(x.tag||'').trim()===dir);
+      if(!list.length) return toast('这个方向还没有卡');
+      card=list[Math.floor(Math.random()*list.length)];
+    }else if(k==='guarantee'){
+      const seen=new Set((state.ledger||[]).filter(r=>r.type==='drawWish').map(r=>r.name.replace('抽到心愿卡：','')));
+      const list=state.wishPool.filter(x=>!seen.has(x.name));
+      const pool=list.length?list:state.wishPool;
+      card=pool[Math.floor(Math.random()*pool.length)];
+    }else{
+      card=drawWishCardFromPool();
+    }
+    if(!card) return toast('卡池是空的');
+    const nc={...card, id:uid(), expiresAt:Date.now()+WISH_SHELF_DAYS*86400000};
+    state.todayWishes.push(nc);
+    c.tok[k]--;
+    if(k==='doubleDraw'){ // 双抽再补一张
+      const c2=drawWishCardFromPool();
+      if(c2) state.todayWishes.push({...c2, id:uid(), expiresAt:Date.now()+WISH_SHELF_DAYS*86400000});
+    }
+    save(); render(); toast('已加入今日心愿：'+nc.name);
+    return;
+  }
+  if(k==='rerollAction'){
+    const pool=state.actionPool||[];
+    if(!pool.length) return toast('行动卡池是空的');
+    const src=pool[Math.floor(Math.random()*pool.length)];
+    const card={id:uid(),name:src.name,energy:src.energy,tag:src.tag||'',expiresAt:Date.now()+ACTION_SHELF_DAYS*86400000};
+    state.todayActions.push(card);
+    c.tok[k]--;
+    save(); render(); toast('已加入今日行动：'+card.name);
+    return;
+  }
+  if(k==='copy' || k==='freeze' || k==='insure'){
+    const list = (k==='freeze') ? state.wishInv.concat(state.actionInv)
+               : (k==='insure') ? state.wishInv.concat(state.todayWishes)
+               : state.todayWishes.concat(state.wishInv);
+    if(!list.length) return toast('没有可选的卡');
+    ckPickCard(k==='copy'?'选择要复制的心愿卡':(k==='freeze'?'选择要延期的卡':'选择要投保的心愿'), list, function(card){
+      if(!card) return;
+      if(k==='copy'){
+        if(state.wishInv.length>=WISH_CAP) return toast('心愿仓库已满');
+        state.wishInv.push({...card, id:uid()});
+        toast('已复制到仓库：'+card.name);
+      }else{
+        const add = (k==='freeze'?3:7);
+        card.expiresAt = (card.expiresAt||Date.now()) + add*86400000;
+        toast('已为「'+card.name+'」延长 '+add+' 天');
+      }
+      c.tok[k]--;
+      save(); render();
+    });
+    return;
+  }  if(k==='freeWish'){
+    const card=state.todayWishes.find(x=>!x.paid);
+    if(!card) return toast('今日没有可免单的心愿');
+    card.paid=true; card.cost=0;
+    c.tok[k]--;
+    save(); render(); toast('「'+card.name+'」已免单，使用时不再消耗能量');
+    return;
+  }
+  if(k==='extraChallenge'){
+    ckRefreshWeek(true);
+    c.ch.push({dir:(ckWeekDirs()[0]||'额外'), target:2, done:0, claimed:false});
+    c.tok[k]--;
+    save(); render(); toast('本周多了一个挑战');
+    return;
+  }
+  if(k==='doubleEnergy' || k==='lucky' || k==='rare'){
+    return toast('这个道具会在抽卡/完成行动时自动生效');
+  }
+}
+
+/* ---------- 道具面板 ---------- */
+function renderTokenPanel(){
+  const c=ck();
+  const host=document.getElementById('coinSub');
+  if(!host) return;
+  let box=document.getElementById('tokenBox');
+  if(!box){
+    box=document.createElement('div');
+    box.id='tokenBox';
+    const panel=host.closest('.panel');
+    if(panel) panel.appendChild(box);
+  }
+  const list=ckTokenList();
+  const cps=(c.coupons||[]).map(x=>x.p===0.1?'9 折券':'7 折券');
+  if(!list.length && !cps.length){
+    box.innerHTML='<div class="hint" style="margin-top:6px">还没有道具。兑换来的券会出现在这里。</div>';
+    return;
+  }
+  box.innerHTML='<div class="hint" style="margin-top:6px;font-weight:800">我的道具</div>'+
+    list.map(t=>`<div class="coin-item">
+      <div class="coin-item-main"><span class="coin-item-name">${t.n} ×${t.v}</span></div>
+      ${["lucky","rare","doubleEnergy"].indexOf(t.k)>=0 ? `<span class="coin-item-desc">下次自动生效</span>` : `<button class="btn btn-sm btn-ghost" data-usetok="${t.k}">使用</button>`}
+    </div>`).join('')+
+    cps.map(n=>`<div class="coin-item"><div class="coin-item-main"><span class="coin-item-name">🏷️ ${n}</span></div><span class="coin-item-desc">兑心愿时自动抵扣</span></div>`).join('');
+  box.querySelectorAll('[data-usetok]').forEach(b=>{
+    b.onclick=()=>ckUseToken(b.dataset.usetok);
+  });
+}
+
+/* 渲染钩子 */
+(function(){
+  const r1=window.render;
+  window.render=function(){
+    r1.apply(null,arguments);
+    try{ renderTokenPanel(); }catch(e){}
+  };
+  try{ renderTokenPanel(); }catch(e){}
+})();
+
+/* 券自动抵扣 */
+(function(){
+  const u0=window.useWish;
+  if(typeof u0!=='function') return;
+  window.useWish=function(id, fromInv){
+    const c=ck();
+    const list=fromInv?state.wishInv:state.todayWishes;
+    const card=(list||[]).find(x=>x.id===id);
+    if(card && !card.paid && c.coupons && c.coupons.length && state.energy>=card.cost){
+      const cp=c.coupons[0];
+      const save0=card.cost;
+      const cut=Math.min(cp.cap, Math.round(save0*cp.p));
+      card.cost=Math.max(0, save0-cut);
+      c.coupons.shift();
+      const r=u0.call(null,id,fromInv);
+      return r;
+    }
+    return u0.call(null,id,fromInv);
+  };
+})();
+
+/* ---------- PWA ---------- */
+(function(){
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>{
+      navigator.serviceWorker.register('sw.js').catch(()=>{});
+    });
+  }
+})();
+
+</script>
+<script>
+/* ========== 第三阶段：补完 8 个装饰/统计类商品 ========== */
+
+/* 1) 场景固定 */
+(function(){
+  const rw0 = window.renderWitchBg;
+  if(typeof rw0 === 'function'){
+    window.renderWitchBg = function(){
+      let c=null; try{ c=ck(); }catch(e){}
+      const box=document.querySelector('#witchBg');
+      // 只在“当天”生效，第二天自动回到随机
+      const sc = (c && c.scene && typeof c.scene==='object' && c.scene.d===today()) ? c.scene : null;
+      if(sc && box){
+        const idx=parseInt(sc.i,10)-1;
+        if(idx>=0 && idx<WITCH_SCENES.length){
+          if(box.dataset.idx!=='s'+idx){
+            box.dataset.idx='s'+idx;
+            box.innerHTML=WITCH_SCENES[idx];
+          }
+          return;
+        }
+      }
+      return rw0.apply(null, arguments);
+    };
+  }
+})();
+
+/* 2) 语气包：改女巫气泡 */
+const CK_TONE_LINES = {
+  gentle: [
+    '今天也慢慢来就好，不着急。',
+    '辛苦啦，先喝口水再抽。',
+    '不用勉强自己，做一点也算数。',
+    '我在这儿陪着你呢。',
+    '抽到的都是你现在能接住的。',
+    '今天也要好好吃饭呀。'
+  ],
+  sharp: [
+    '又来了？行吧，抽一张看看。',
+    '别磨蹭，抽完就去干活。',
+    '你再刷手机，我可要走了。',
+    '想变强就别光想。',
+    '抽吧，反正你也不会立刻去做。',
+    '今天又想偷懒？'
+  ],
+  chuuni: [
+    '命运的齿轮，又开始转动了……',
+    '凡人，向本女巫许下你的愿望吧。',
+    '星象告诉我，你今天会做出选择。',
+    '封印松动了，力量正在聚集。',
+    '这一抽，将改写你的因果。',
+    '黑暗的低语，你听见了吗？'
+  ]
+};function ckApplyTone(forceRandom){
+  const c=ck();
+  const b=document.querySelector('#witchBubble');
+  if(!b) return;
+  const DEFAULT='欢迎光临～我是<b>心愿女巫</b>✨<br>点我一下，看看我今天想对你说什么～';
+  const t=c.tone;
+  const active = t && typeof t==='object' && t.k && t.d===today();
+  if(!active){
+    if(t && typeof t==='object' && t.until && Date.now()>=t.until){ c.tone=null; save(); }
+    b.innerHTML = c.witchName ? ('<b>'+escapeHtml(c.witchName)+'</b>，'+DEFAULT) : DEFAULT;
+    return;
+  }
+  const arr=(CK_TONE_LINES[t.k]||CK_TONE_LINES.gentle);
+  const line=arr[Math.floor(Math.random()*arr.length)];
+  const TN={gentle:'温柔女巫',sharp:'毒舌女巫',chuuni:'中二女巫'};
+  const name=c.witchName?('<b>'+escapeHtml(c.witchName)+'</b>，'):'';
+  b.innerHTML = name+line+'<br><span style="color:#9AA7B8;font-size:12px">—— '+(TN[t.k]||'心愿女巫')+' · 今天</span>';
+}
+/* 3) 皮肤 / 特效 class */
+function ckApplyLook(){
+  const c=ck();
+  document.body.classList.toggle('ck-skin', !!c.skin);
+  document.body.classList.toggle('ck-fx', !!c.cardFx);
+}
+
+/* 4) 称号显示 */
+function ckRenderTitle(){
+  const c=ck();
+  const seg=document.getElementById('checkinSeg');
+  if(!seg) return;
+  let el=document.getElementById('ckTitle');
+  if(!el){
+    el=document.createElement('div');
+    el.id='ckTitle';
+    el.style.cssText='text-align:center;font-size:13px;font-weight:800;color:var(--lavender);margin:-6px 0 10px';
+    seg.insertAdjacentElement('afterend', el);
+  }
+  el.textContent = c.title ? ('🏅 '+c.title) : '';
+}
+
+/* 5) 通用弹窗 */
+function ckModal(title, html){
+  let m=document.getElementById('ckModal');
+  if(!m){
+    m=document.createElement('div');
+    m.id='ckModal';
+    m.style.cssText='position:fixed;inset:0;z-index:9990;background:rgba(30,40,55,.45);display:flex;align-items:center;justify-content:center;padding:20px';
+    m.onclick=(e)=>{ if(e.target===m) m.remove(); };
+    document.body.appendChild(m);
+  }
+  m.innerHTML=`<div style="background:#fff;border-radius:18px;max-width:420px;width:100%;max-height:80vh;overflow:auto;padding:18px 18px 22px">
+    <div style="font-size:18px;font-weight:800;margin-bottom:12px">${title}</div>
+    <div style="font-size:14px;line-height:1.9;color:#3A4654">${html}</div>
+    <button id="ckModalClose" style="width:100%;margin-top:16px;padding:12px;border:none;border-radius:11px;background:#7FA8CE;color:#fff;font-weight:800;font-size:15px;font-family:inherit">关闭</button>
+  </div>`;
+  const b=document.getElementById('ckModalClose');
+  if(b) b.onclick=()=>m.remove();
+}
+
+/* 6) 纪念册 */
+function ckOpenAlbum(){
+  const c=ck();
+  const log=c.log||{};
+  const days=Object.keys(log).length;
+  const best=Math.max.apply(null,[0].concat(c.habits.map(h=>h.best||0)));
+  const draws=(state.ledger||[]).filter(r=>r.type==='drawWish'||r.type==='drawAction').length;
+  const done=(state.ledger||[]).filter(r=>r.type==='completeAction').length;
+  const used=(state.ledger||[]).filter(r=>r.type==='useWish').length;
+
+  /* 最近 8 周打卡热力图 */
+  let cells='';
+  const todayD=parseDay(today());
+  for(let i=55;i>=0;i--){
+    const d=new Date(todayD.getTime()-i*86400000);
+    const k=dateStr(d);
+    const n=(log[k]||[]).length;
+    const bg = n===0 ? '#EEF2F7' : n===1 ? '#CFE0F0' : n===2 ? '#9FC0DF' : '#6E9BC9';
+    cells+='<div title="'+k+' · '+n+' 次" style="width:100%;aspect-ratio:1;border-radius:3px;background:'+bg+'"></div>';
+  }
+  const habitRows=c.habits.map(function(h){
+    return '<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #F2F5F9">'
+      + '<span>'+escapeHtml(h.name)+'</span>'
+      + '<span style="color:#7A8798;font-size:13px">连续 '+h.streak+' 天 · 最长 '+h.best+' 天</span></div>';
+  }).join('');
+
+  ckModal('📖 打卡纪念册',
+    '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;text-align:center">'
+    + '<div style="background:#F7F9FC;border-radius:10px;padding:10px 4px"><div style="font-size:20px;font-weight:800">'+days+'</div><div style="font-size:12px;color:#8A97A6">打卡天数</div></div>'
+    + '<div style="background:#F7F9FC;border-radius:10px;padding:10px 4px"><div style="font-size:20px;font-weight:800">'+best+'</div><div style="font-size:12px;color:#8A97A6">最长连续</div></div>'
+    + '<div style="background:#F7F9FC;border-radius:10px;padding:10px 4px"><div style="font-size:20px;font-weight:800">'+c.coins+'</div><div style="font-size:12px;color:#8A97A6">金币</div></div>'
+    + '</div>'
+    + '<div style="font-weight:800;margin:10px 0 6px">最近 8 周</div>'
+    + '<div style="display:grid;grid-template-columns:repeat(14,1fr);gap:3px;margin-bottom:14px">'+cells+'</div>'
+    + '<div style="font-weight:800;margin:10px 0 4px">各习惯</div>'
+    + habitRows
+    + '<div style="display:flex;justify-content:space-between;padding:10px 0 0;color:#7A8798;font-size:13px">'
+    + '<span>抽卡 '+draws+' 次</span><span>完成行动 '+done+' 次</span><span>兑心愿 '+used+' 次</span></div>'
+  );
+}/* 7) 深度报告 */
+function ckOpenReport(){
+  const start=parseDay(getWeekStart()).getTime();
+  const week=(state.ledger||[]).filter(r=>r.t>=start);
+  const doneW=week.filter(r=>r.type==='completeAction');
+  const gainW=doneW.reduce((s,r)=>s+(r.delta||0),0);
+  const drawW=week.filter(r=>r.type==='drawWish'||r.type==='drawAction').length;
+  const useW=week.filter(r=>r.type==='useWish').length;
+  const byDir={};
+  doneW.forEach(r=>{ const t=String((r.snapshot&&r.snapshot.tag)||'未分类'); byDir[t]=(byDir[t]||0)+1; });
+  const rows=Object.keys(byDir).sort((a,b)=>byDir[b]-byDir[a]).slice(0,6)
+    .map(k=>`<div style="display:flex;justify-content:space-between"><span>${escapeHtml(k)}</span><b>${byDir[k]} 次</b></div>`).join('')||'<div style="color:#9AA7B8">本周还没有完成记录</div>';
+  ckModal('📊 本周深度报告', `
+    <div>完成行动：<b>${doneW.length}</b> 次 · 收入 <b>${gainW}</b> 能量</div>
+    <div>抽卡：<b>${drawW}</b> 次 · 兑心愿：<b>${useW}</b> 次</div>
+    <div style="margin:12px 0 6px;font-weight:800">各方向投入</div>
+    ${rows}
+  `);
+}
+
+/* 8) 分享图 */
+function ckShareCard(){
+  const c=ck();
+  const cv=document.createElement('canvas');
+  cv.width=600; cv.height=840;
+  const g=cv.getContext('2d');
+  g.fillStyle='#F4F7FB'; g.fillRect(0,0,600,840);
+  g.fillStyle='#7FA8CE';
+  g.fillRect(40,40,520,760);
+  g.fillStyle='#FFFFFF';
+  g.fillRect(52,52,496,736);
+  g.fillStyle='#2C3A47';
+  g.font='bold 40px sans-serif';
+  g.fillText('心愿抽卡',72,130);
+  g.font='22px sans-serif';
+  g.fillStyle='#7A8798';
+  g.fillText(today(),72,175);
+  const done=(state.ledger||[]).filter(r=>r.type==='completeAction').length;
+  const days=Object.keys(c.log||{}).length;
+  g.fillStyle='#2C3A47'; g.font='26px sans-serif';
+  g.fillText('打卡 '+days+' 天',72,260);
+  g.fillText('完成行动 '+done+' 次',72,310);
+  g.fillText('金币 '+c.coins,72,360);
+  if(c.title){ g.fillText('称号：'+c.title,72,410); }
+  const last=state.todayWishes[state.todayWishes.length-1];
+  if(last){
+    g.fillStyle='#EAF1F8'; g.fillRect(72,470,456,220);
+    g.fillStyle='#2C3A47'; g.font='bold 24px sans-serif';
+    g.fillText('今日心愿',96,520);
+    g.font='22px sans-serif';
+    const txt=String(last.name).slice(0,16);
+    g.fillText(txt,96,565);
+    g.fillStyle='#7FA8CE'; g.font='bold 20px sans-serif';
+    g.fillText(fmt(last.cost)+' 能量',96,620);
+  }
+  const a=document.createElement('a');
+  a.href=cv.toDataURL('image/png');
+  a.download='心愿抽卡-'+today()+'.png';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>a.remove(),1000);
+  toast('分享图已生成');
+}
+
+/* 覆盖购买后的处理：让上面这些真正生效 */
+(function(){
+  const a0 = window.ckApply;
+  window.ckApply = function(it){
+    const c=ck();
+    if(it.e==='scene'){ c.sceneDay=today(); c.sceneCharges=(c.sceneCharges||0)+3; toast('今天可以换 3 次场景'); return; }
+    if(it.e==='tone'){ ckTone(); ckApplyTone(); return; }
+    if(it.e==='fx'){ c.cardFx=true; ckApplyLook(); toast('抽卡特效已开启'); return; }
+    if(it.e==='skin'){ c.skin=true; ckApplyLook(); toast('卡面皮肤已开启'); return; }
+    if(it.e==='share'){ ckShareCard(); return; }
+    if(it.e==='album'){ c.album=true; ckOpenAlbum(); return; }
+    if(it.e==='report'){ c.deepReport=true; ckOpenReport(); return; }
+    return a0.call(null, it);
+  };
+})();
+
+/* 渲染钩子 */
+(function(){
+  const r2=window.render;
+  window.render=function(){
+    r2.apply(null,arguments);
+    try{ ckApplyLook(); ckRenderTitle(); renderWitchBg(); }catch(e){}
+  };
+  try{ ckApplyLook(); ckRenderTitle(); }catch(e){}
+})();
+
+</script>
+<script>
+/* 场景更换：当天最多 3 次 */
+function ckSwapScene(){
+  const c=ck();
+  if(c.sceneDay!==today()){ c.sceneDay=today(); c.sceneCharges=0; }
+  if(!(c.sceneCharges>0)) return toast('今天没有更换次数了');
+  const cur=(c.scene && c.scene.d===today()) ? (c.scene.i-1) : -1;
+  let idx=Math.floor(Math.random()*WITCH_SCENES.length);
+  if(WITCH_SCENES.length>1 && idx===cur) idx=(idx+1)%WITCH_SCENES.length;
+  c.scene={d:today(), i:idx+1};
+  c.sceneCharges--;
+  save();
+  try{ renderWitchBg(); }catch(e){}
+  render();
+  const names=['神秘森林','熬魔药','女巫的小屋','骑士来访','观星','小动物们'];
+  toast('换成「'+(names[idx]||'新场景')+'」，今天还剩 '+c.sceneCharges+' 次');
+}
+function ckRenderSceneRow(){
+  const c=ck();
+  if(c.sceneDay!==today()){ c.sceneDay=today(); c.sceneCharges=0; }
+  const box=document.getElementById('propExtra')||document.getElementById('tokenBox');
+  if(!box) return;
+
+  /* 场景更换 */
+  let el=document.getElementById('sceneRow');
+  if(c.sceneCharges>0){
+    if(!el){ el=document.createElement('div'); el.id='sceneRow'; box.appendChild(el); }
+    el.className='coin-item';
+    el.innerHTML='<div class="coin-item-main"><span class="coin-item-name">🌙 场景更换 ×'+c.sceneCharges+'</span><span class="coin-item-desc">今天还能换 '+c.sceneCharges+' 次</span></div><button class="btn btn-sm btn-ghost" id="sceneSwapBtn">换一个</button>';
+    const b=document.getElementById('sceneSwapBtn');
+    if(b) b.onclick=()=>ckSwapScene();
+  } else if(el){ el.remove(); }
+
+  /* 主题配色（买过就永久可切换） */
+  let th=document.getElementById('themeRow');
+  if(c.own && c.own['theme']){
+    if(!th){ th=document.createElement('div'); th.id='themeRow'; th.className='coin-item'; box.appendChild(th); }
+    const T=(c.theme&&c.theme.k)?c.theme:null;
+    const TN={'theme-pink':'樱粉','theme-mint':'薄荷','theme-rose':'玫瑰','theme-lilac':'雾紫','theme-sky':'晴空','theme-amber':'琥珀','theme-ink':'墨黑','theme-snow':'素白'};
+    const tname=T?(TN[T.k]||'默认蓝'):'默认蓝';
+    let left='';
+    if(T && T.until){
+      const d=Math.max(0,Math.ceil((T.until-Date.now())/86400000));
+      left=' · 还有 '+d+' 天';
+    }
+    th.innerHTML='<div class="coin-item-main"><span class="coin-item-name">🎨 主题配色 · '+tname+left+'</span></div><button class="btn btn-sm btn-ghost" id="themePickBtn">选择</button>';
+    const tb=document.getElementById('themePickBtn');
+    if(tb) tb.onclick=()=>ckThemePicker();
+  } else if(th){ th.remove(); }
+}(function(){
+  const r3=window.render;
+  window.render=function(){
+    r3.apply(null,arguments);
+    try{ ckRenderSceneRow(); }catch(e){}
+  };
+  try{ ckRenderSceneRow(); }catch(e){}
+})();
+
+</script>
+<script>
+/* 仓库页分段：仓库 / 道具 */
+function invSetSeg(seg){
+  const a=document.getElementById('invPane'), b=document.getElementById('propPane');
+  if(!a||!b) return;
+  a.style.display = seg==='inv'?'':'none';
+  b.style.display = seg==='prop'?'':'none';
+  document.querySelectorAll('#invSeg .seg-btn').forEach(x=>x.classList.toggle('on', x.dataset.invseg===seg));
+  if(seg==='prop'){ try{ renderTokenPanel(); renderCheckin(); }catch(e){} }
+}
+document.querySelectorAll('#invSeg .seg-btn').forEach(b=>{
+  b.onclick=()=>invSetSeg(b.dataset.invseg);
+});
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{ if(t.dataset.page==='inventory') invSetSeg(document.querySelector('#invSeg .seg-btn.on')?document.querySelector('#invSeg .seg-btn.on').dataset.invseg:'inv'); });
+});
+</script><script>
+/* 语气角色按钮：只在这里出现，点女巫仍是原来的行为 */
+(function(){
+  let busy=false;
+  const TONE_NAME={gentle:'温柔女巫',sharp:'毒舌女巫',chuuni:'中二女巫'};
+  function toneActive(){
+    const c=ck(); const t=c.tone;
+    return !!(t && typeof t==='object' && t.k && t.until && Date.now()<t.until);
+  }
+  function ui(){
+    const b=document.querySelector('#witchBubble');
+    if(!b) return null;
+    if(!document.getElementById('toneWitchBtn')){
+      const btn=document.createElement('button');
+      btn.id='toneWitchBtn';
+      btn.style.cssText='margin-top:10px;padding:9px 16px;border:none;border-radius:12px;background:#F2EDFB;color:#6F4FA0;font-weight:800;font-size:13px;font-family:inherit';
+      btn.onclick=speak;
+      host.appendChild(btn);
+      const out=document.createElement('div');
+      out.id='toneWitchOut';
+      out.style.cssText='margin-top:8px;padding:11px 13px;border-radius:13px;background:#FFFDFB;border:1px solid #EFE6F8;color:#3A4654;font-size:13px;line-height:1.8;display:none';
+      btn.parentNode.insertBefore(out, btn.nextSibling);
+    }
+    return {btn:document.getElementById('toneWitchBtn'), out:document.getElementById('toneWitchOut')};
+  }
+  function sync(){
+    const c=ck(); const t=c.tone;
+    const on = toneActive() && (typeof aiReady==='function' && aiReady());
+    const el=ui(); if(!el) return;
+    if(!on){ el.btn.style.display='none'; el.out.style.display='none'; return; }
+    el.btn.style.display='inline-block';
+    const _left=Math.max(0, Math.ceil((t.until-Date.now())/86400000));
+    el.btn.textContent=(TONE_NAME[t.k]||'心愿女巫')+' · 剩 '+_left+' 天';
+  }
+  async function speak(){
+    const c=ck(); const t=c.tone;
+    if(!toneActive()) return toast('今天没有启用语气');
+    if(!(typeof aiReady==='function' && aiReady())) return toast('先在「记录 → AI 设置」填 API Key，这个角色才可用');
+    if(busy) return;
+    busy=true;
+    const el=ui();
+    el.out.style.display='block';
+    el.out.textContent='……';
+    try{
+      const toneName={gentle:'温柔体贴',sharp:'毒舌但其实关心人',chuuni:'中二、魔幻'}[t.k]||'温柔';
+      const done=(state.ledger||[]).filter(r=>r.type==='completeAction').length;
+      const p='你是「心愿女巫」的'+toneName+'人格。用户希望被称作：'+(c.witchName||'旅人')+'。TA 今天完成 '+done+' 件行动。'
+        +'请用'+toneName+'的语气说一句简短的话，18 字以内，中文，不要引号，不要解释，只输出这句话。';
+      const txt=await callAI(p);
+      el.out.innerHTML='<b>'+(c.witchName?escapeHtml(c.witchName)+'</b>，':'')+escapeHtml(String(txt||'').trim().slice(0,60))
+
+    }catch(e){
+      el.out.textContent='说话失败：'+e.message;
+    }finally{ busy=false; }
+  }
+  window.__syncToneBtn=sync;
+  const r=window.render;
+  window.render=function(){ r.apply(null,arguments); try{ sync(); }catch(e){} };
+  try{ sync(); }catch(e){}
+})();
+</script><script>
+/* 卡面皮肤：解锁一套卡片边框，可随时切换 */
+const CK_SKINS = [['','默认'],['cs-blue','雾蓝细线'],['cs-dash','薄荷虚线'],['cs-dot','藕粉点线'],['cs-double','月白双线'],['cs-corner','灰蓝角框'],['cs-magic','星芒花纹'],['cs-floral','小花花纹']];
+function ckApplySkin(){
+  const c=ck();
+  const root=document.documentElement;
+  Array.prototype.slice.call(root.classList).forEach(k=>{ if(k.indexOf('cs-')===0) root.classList.remove(k); });
+  if(c.cardSkin && c.cardSkinUntil && Date.now()>c.cardSkinUntil){ c.cardSkin=''; c.cardSkinUntil=0; save(); }
+  if(c.cardSkin) root.classList.add(c.cardSkin);
+}
+function ckSkinPicker(){
+  const c=ck();
+  if(c.cardSkin && c.cardSkinUntil && Date.now()<c.cardSkinUntil){
+    const d=Math.max(1,Math.ceil((c.cardSkinUntil-Date.now())/86400000));
+    return toast('已经选好了，'+d+' 天后才能再换');
+  }
+  if(!c.propSkin) return toast('没有可用的卡面道具，先去兑换');
+  const cur=c.cardSkin||'';
+  const sw=CK_SKINS.map(function(o){
+    const on=cur===o[0];
+    return '<button data-skin="'+o[0]+'" style="flex:1;min-width:72px;padding:10px 8px;border-radius:10px;border:1.5px solid '+(on?'#7FA8CE':'#E3E9F0')+';background:'+(on?'#EAF2FA':'#fff')+';font-weight:800;font-size:13px;font-family:inherit">'+o[1]+'</button>';
+  }).join('');
+  ckModal('🎴 卡面皮肤', '<div style="color:#7A8798;font-size:13px;margin-bottom:10px">选一套卡背边框，永久可切换。</div><div style="display:flex;flex-wrap:wrap;gap:8px">'+sw+'</div>');
+  const m=document.getElementById('ckModal');
+  if(!m) return;
+  m.querySelectorAll('[data-skin]').forEach(function(b){
+    b.onclick=function(){
+      const cc=ck(); cc.cardSkin=b.dataset.skin; cc.own['skin']=true; cc.propSkin=false; cc.cardSkinUntil = b.dataset.skin ? (Date.now()+3*86400000) : 0;
+      ckApplySkin(); save(); render();
+      m.remove();
+      toast('卡面：'+b.textContent);
+    };
+  });
+}
+(function(){
+  const a0=window.ckApply;
+  window.ckApply=function(it){
+    if(it && it.e==='skin'){ const c=ck(); c.own['skin']=true; c.propSkin=true; toast('卡面道具已放入「仓库 → 道具」'); return; }
+    return a0.call(null,it);
+  };
+  const r0=window.render;
+  window.render=function(){
+    r0.apply(null,arguments);
+    try{ ckApplySkin(); ckSkinRow(); }catch(e){}
+  };
+  try{ ckApplySkin(); }catch(e){}
+})();
+function ckSkinRow(){
+  const c=ck();
+  const box=document.getElementById('propExtra')||document.getElementById('tokenBox');
+  if(!box) return;
+  let el=document.getElementById('skinRow');
+  if(!(c.own && c.own['skin'])){ if(el) el.remove(); return; }
+  if(!el){ el=document.createElement('div'); el.id='skinRow'; el.className='coin-item'; box.appendChild(el); }
+  const nm={'':'默认','cs-blue':'雾蓝细线','cs-dash':'薄荷虚线','cs-dot':'藕粉点线','cs-double':'月白双线','cs-corner':'灰蓝角框','cs-magic':'星芒花纹','cs-floral':'小花花纹'}[c.cardSkin||'']||'默认';
+  const leftD=(c.cardSkin && c.cardSkinUntil)?Math.max(0,Math.ceil((c.cardSkinUntil-Date.now())/86400000)):0;
+  el.innerHTML='<div class="coin-item-main"><span class="coin-item-name">🎴 卡面皮肤 · '+nm+(leftD?' · 剩 '+leftD+' 天':'')+'</span></div><button class="btn btn-sm btn-ghost" id="skinPickBtn">选择</button>';
+  const b=document.getElementById('skinPickBtn');
+  if(b) b.onclick=()=>ckSkinPicker();
+}
+
+</script>
+<script>
+/* 道具栏：场景 / 主题 / 卡面 三行统一渲染（覆盖旧实现） */
+function ckRenderSceneRow(){
+  const c=ck();
+  if(c.sceneDay!==today()){ c.sceneDay=today(); c.sceneCharges=0; }
+  const box=document.getElementById('propExtra')||document.getElementById('tokenBox');
+  if(!box) return;
+
+  /* 场景更换 */
+  let el=document.getElementById('sceneRow');
+  if(c.sceneCharges>0){
+    if(!el){ el=document.createElement('div'); el.id='sceneRow'; box.appendChild(el); }
+    el.className='coin-item';
+    el.innerHTML='<div class="coin-item-main"><span class="coin-item-name">🌙 场景更换 ×'+c.sceneCharges+'</span><span class="coin-item-desc">今天还能换 '+c.sceneCharges+' 次</span></div><button class="btn btn-sm btn-ghost" id="sceneSwapBtn">换一个</button>';
+    const b=document.getElementById('sceneSwapBtn');
+    if(b) b.onclick=()=>ckSwapScene();
+  } else if(el){ el.remove(); }
+
+  /* 主题配色 */
+  const tActive = c.theme && c.theme.k && c.theme.until && Date.now()<c.theme.until;
+  const tPending = !!c.propTheme;
+  let th=document.getElementById('themeRow');
+  if(tActive || tPending){
+    if(!th){ th=document.createElement('div'); th.id='themeRow'; th.className='coin-item'; box.appendChild(th); }
+    const TN={'theme-pink':'樱粉','theme-mint':'薄荷','theme-rose':'玫瑰','theme-lilac':'雾紫','theme-sky':'晴空','theme-amber':'琥珀','theme-ink':'墨黑','theme-snow':'素白'};
+    if(tPending){
+      th.innerHTML='<div class="coin-item-main"><span class="coin-item-name">🎨 主题配色 · 待选择</span><span class="coin-item-desc">选好后 3 天内不能改</span></div><button class="btn btn-sm btn-primary" id="themePickBtn">选择颜色</button>';
+      const tb=document.getElementById('themePickBtn');
+      if(tb) tb.onclick=()=>ckThemePicker();
+    }else{
+      const d=Math.max(0,Math.ceil((c.theme.until-Date.now())/86400000));
+      th.innerHTML='<div class="coin-item-main"><span class="coin-item-name">🎨 主题配色 · '+(TN[c.theme.k]||'已选')+' · 还剩 '+d+' 天</span><span class="coin-item-desc">到期自动恢复默认</span></div>';
+    }
+  } else if(th){ th.remove(); }
+
+  /* 卡面皮肤 */
+  const sActive = c.cardSkin && c.cardSkinUntil && Date.now()<c.cardSkinUntil;
+  const sPending = !!c.propSkin;
+  let sk=document.getElementById('skinRow');
+  if(sActive || sPending){
+    if(!sk){ sk=document.createElement('div'); sk.id='skinRow'; sk.className='coin-item'; box.appendChild(sk); }
+    const SN={'cs-blue':'雾蓝细线','cs-dash':'薄荷虚线','cs-dot':'藕粉点线','cs-double':'月白双线','cs-corner':'灰蓝角框','cs-magic':'星芒花纹','cs-floral':'小花花纹'};
+    if(sPending){
+      sk.innerHTML='<div class="coin-item-main"><span class="coin-item-name">🎴 卡面皮肤 · 待选择</span><span class="coin-item-desc">选好后 3 天内不能改</span></div><button class="btn btn-sm btn-primary" id="skinPickBtn">选择卡面</button>';
+      const sb=document.getElementById('skinPickBtn');
+      if(sb) sb.onclick=()=>ckSkinPicker();
+    }else{
+      const d=Math.max(0,Math.ceil((c.cardSkinUntil-Date.now())/86400000));
+      sk.innerHTML='<div class="coin-item-main"><span class="coin-item-name">🎴 卡面皮肤 · '+(SN[c.cardSkin]||'已选')+' · 还剩 '+d+' 天</span><span class="coin-item-desc">到期自动恢复默认</span></div>';
+    }
+  } else if(sk){ sk.remove(); }
+}
+
+</script>
+<script>/* 停用旧的卡面行渲染，统一由 ckRenderSceneRow 负责 */ function ckSkinRow(){} </script>
+<script>
+/* 花纹卡面：保留星芒/小花，新增 8 种复杂花纹（运行时生成 CSS） */
+(function(){
+  const P = [
+    { k:'cs-vine',    n:'藤蔓花纹',  c:'%237FA88C',
+      d:"<path d='M2 22c6-2 8-8 6-14' stroke='%237FA88C' stroke-width='1.6' fill='none'/><ellipse cx='9' cy='16' rx='3' ry='1.6' transform='rotate(-30 9 16)' fill='%237FA88C' opacity='.75'/><ellipse cx='6' cy='10' rx='2.6' ry='1.4' transform='rotate(20 6 10)' fill='%237FA88C' opacity='.6'/>" },
+    { k:'cs-laurel',  n:'月桂花纹',  c:'%238FA36A',
+      d:"<path d='M4 20C10 16 14 10 14 3' stroke='%238FA36A' stroke-width='1.4' fill='none'/><ellipse cx='7' cy='16' rx='2.8' ry='1.4' transform='rotate(-40 7 16)' fill='%238FA36A' opacity='.8'/><ellipse cx='10' cy='11' rx='2.8' ry='1.4' transform='rotate(-55 10 11)' fill='%238FA36A' opacity='.65'/><ellipse cx='12' cy='6' rx='2.4' ry='1.2' transform='rotate(-70 12 6)' fill='%238FA36A' opacity='.5'/>" },
+    { k:'cs-flame',   n:'火焰花纹',  c:'%23D9906B',
+      d:"<path d='M12 2c4 6 6 8 6 12a6 6 0 0 1-12 0c0-4 2-6 6-12z' fill='none' stroke='%23D9906B' stroke-width='1.5'/><path d='M12 9c2 3 3 4 3 6a3 3 0 0 1-6 0c0-2 1-3 3-6z' fill='%23D9906B' opacity='.55'/>" },
+    { k:'cs-cloud',   n:'云纹花纹',  c:'%238EA9C9',
+      d:"<path d='M5 16a3.5 3.5 0 0 1 .6-6.9A4.5 4.5 0 0 1 14 9.5a3 3 0 0 1 .6 5.9' fill='none' stroke='%238EA9C9' stroke-width='1.5' stroke-linecap='round'/><path d='M5 20h10' stroke='%238EA9C9' stroke-width='1.4' stroke-linecap='round' opacity='.6'/>" },
+    { k:'cs-snow',    n:'雪花花纹',  c:'%2390B8CF',
+      d:"<g stroke='%2390B8CF' stroke-width='1.4' stroke-linecap='round'><path d='M12 2v20M4 7l16 10M20 7L4 17'/><path d='M12 5l-2 2M12 5l2 2M12 19l-2-2M12 19l2-2'/></g>" },
+    { k:'cs-stars',   n:'星链花纹',  c:'%23B9A6DC',
+      d:"<path d='M5 5l1.2 3.4L9.6 9.6 6.2 10.8 5 14.2 3.8 10.8.4 9.6 3.8 8.4z' fill='%23B9A6DC'/><path d='M14 12l.9 2.5 2.5.9-2.5.9-.9 2.5-.9-2.5-2.5-.9 2.5-.9z' fill='%23B9A6DC' opacity='.7'/><path d='M19 4l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z' fill='%23B9A6DC' opacity='.45'/>" },
+    { k:'cs-feather', n:'羽毛花纹',  c:'%23A8A29A',
+      d:"<path d='M4 20C8 16 12 10 18 4' stroke='%23A8A29A' stroke-width='1.4' fill='none'/><path d='M18 4c-1 5-5 9-9 10 4-3 7-6 9-10z' fill='%23A8A29A' opacity='.6'/><path d='M14 8c-1 3-3 5-6 6' stroke='%23A8A29A' stroke-width='1' opacity='.5'/>" },
+    { k:'cs-clover',  n:'四叶草花纹', c:'%2382B48A',
+      d:"<g fill='%2382B48A'><ellipse cx='12' cy='7' rx='3.4' ry='4.6'/><ellipse cx='12' cy='17' rx='3.4' ry='4.6'/><ellipse cx='7' cy='12' rx='4.6' ry='3.4'/><ellipse cx='17' cy='12' rx='4.6' ry='3.4'/></g><circle cx='12' cy='12' r='1.6' fill='%23FFFDF6'/><path d='M12 15c0 3-1 5-2 6' stroke='%2382B48A' stroke-width='1.2' fill='none'/>" }
+  ];
+  const css = P.map(function(p){
+    const uri = "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>" + p.d + "</svg>\")";
+    return "html." + p.k + " .fan-card::after,html." + p.k + " .wish-card::after{content:'';position:absolute;inset:3px;pointer-events:none;border-radius:10px;background-repeat:no-repeat;background-size:13px 13px;background-position:0 0,100% 0,0 100%,100% 100%;background-image:" + [uri,uri,uri,uri].join(",") + "}"
+      + "html." + p.k + " .fan-card,html." + p.k + " .wish-card{box-shadow:0 0 0 1.2px " + p.c.replace('%23','#') + ", 0 10px 22px rgba(120,130,150,.14)!important}";
+  }).join("\n");
+  const st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  try{
+    CK_SKINS.length = 0;
+    CK_SKINS.push(['','默认'],['cs-magic','星芒花纹'],['cs-floral','小花花纹']);
+    P.forEach(function(p){ CK_SKINS.push([p.k, p.n]); });
+    if(typeof ckApplySkin === 'function'){
+      const all = ['cs-magic','cs-floral'].concat(P.map(function(p){ return p.k; }));
+      window.__skinsAll = all;
+    }
+  }catch(e){}
+})();
+
+</script>
+<script>
+/* 更丰富的卡面：整圈渐变边、内嵌双框、斜纹暗纹、顶部缎带 */
+(function(){
+  const EXTRA = [
+    ['cs-grad','虹光渐变边'],
+    ['cs-inset','内嵌双框'],
+    ['cs-stripe','斜纹暗纹'],
+    ['cs-ribbon','顶部缎带']
+  ];
+  const css = [
+    /* 渐变描边：用 border-image 画一圈渐变 */
+    'html.cs-grad .fan-card,html.cs-grad .wish-card{position:relative;border:1.6px solid transparent!important;background-clip:padding-box!important;box-shadow:0 10px 22px rgba(150,170,200,.18)!important}',
+    'html.cs-grad .fan-card::before,html.cs-grad .wish-card::before{content:"";position:absolute;inset:-1.6px;border-radius:inherit;padding:1.6px;background:linear-gradient(135deg,#A8C3DE,#B9A6DC,#E3C3CB,#A9D6C8,#A8C3DE);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}',
+    /* 内嵌双框 */
+    'html.cs-inset .fan-card,html.cs-inset .wish-card{box-shadow:inset 0 0 0 1px rgba(160,180,205,.55), inset 0 0 0 5px rgba(255,255,255,.85), inset 0 0 0 6px rgba(160,180,205,.35), 0 10px 22px rgba(150,170,200,.16)!important}',
+    /* 斜纹暗纹 */
+    'html.cs-stripe .fan-card,html.cs-stripe .wish-card{position:relative;box-shadow:0 0 0 1.2px #C9D5E4, 0 10px 22px rgba(150,170,200,.16)!important}',
+    'html.cs-stripe .fan-card::after,html.cs-stripe .wish-card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:repeating-linear-gradient(135deg,rgba(168,195,222,.18) 0 6px,transparent 6px 14px)}',
+    /* 顶部缎带 */
+    'html.cs-ribbon .fan-card,html.cs-ribbon .wish-card{position:relative;box-shadow:0 0 0 1.2px #D9C7A7, 0 10px 22px rgba(200,180,140,.16)!important;overflow:hidden!important}',
+    'html.cs-ribbon .fan-card::after,html.cs-ribbon .wish-card::after{content:"";position:absolute;top:0;left:0;right:0;height:7px;pointer-events:none;background:linear-gradient(90deg,#D9C7A7,#EADFC8,#D9C7A7)}',
+    'html.cs-ribbon .fan-card::before,html.cs-ribbon .wish-card::before{content:"";position:absolute;top:0;right:0;width:0;height:0;border-top:22px solid #D9C7A7;border-left:22px solid transparent;pointer-events:none;opacity:.9}'
+  ].join('\n');
+  const st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
+  try{
+    EXTRA.forEach(function(e){ if(!CK_SKINS.some(function(s){return s[0]===e[0];})) CK_SKINS.push(e); });
+  }catch(err){}
+  if(typeof ckApplySkin==='function'){
+    // 清除逻辑已经按 cs- 前缀处理，无需额外改
+  }
+})();
+
+</script>
+<script>
+/* 女巫来信：接入 AI + 信箱保存 */
+(function(){
+  function ensureMail(){
+    const c=ck();
+    if(!Array.isArray(c.mailbox)) c.mailbox=[];
+    return c.mailbox;
+  }
+  window.ckLetter = async function(){
+    const c=ck();
+    const name=c.witchName||'旅人';
+    const done=(state.ledger||[]).filter(r=>r.type==='completeAction').length;
+    const days=Object.keys(c.log||{}).length;
+    let text='';
+    ckModal('📮 女巫来信','<div id="letterBody" style="line-height:2;font-size:14px;color:#7A8798">正在写…</div>');
+    try{
+      if(typeof aiReady==='function' && aiReady()){
+        const p='你叫「心愿女巫」，住在一个抽卡 App 里给用户写信。用户希望你称呼 TA 为：'+name+'。'
+          +'TA 已完成 '+done+' 件行动、打卡 '+days+' 天、拥有 '+c.coins+' 金币。'
+          +'请写一封很短的信：2-3 句，中文，温柔但不油腻，不要引号，不要署名，不要解释。';
+        const t=await callAI(p);
+        text=String(t||'').trim().slice(0,120);
+      }
+    }catch(e){
+      text='';
+    }
+    if(!text){
+      const lines=[
+        '你已经完成 '+done+' 件行动，打卡 '+days+' 天。数字不重要，别停下来就好。',
+        '今天抽到的卡，不管是哪张，都是你现在能接住的。',
+        '攒着 '+c.coins+' 金币，想换什么就换，别舍不得。',
+        '累的时候可以什么都不做，女巫不会扣你分。',
+        '你在慢慢变成想成为的人，只是自己看不见。'
+      ];
+      text=lines.sort(function(){return Math.random()-.5;}).slice(0,2).join(' ');
+    }
+    const mail=ensureMail();
+    mail.unshift({d: today(), t: text});
+    while(mail.length>30) mail.pop();
+    save();
+    const body=document.getElementById('letterBody');
+    if(body){
+      body.style.color='#3A4654';
+      body.innerHTML='<div style="font-weight:800;margin-bottom:8px">'+escapeHtml(name)+'：</div>'
+        + escapeHtml(text)
+        + '<div style="margin-top:14px;color:#9AA7B8;font-size:12px;text-align:right">—— 心愿女巫 · '+today()+'</div>';
+    }
+    try{ render(); }catch(e){}
+  };
+
+  window.ckMailbox = function(){
+    const c=ck();
+    const mail=ensureMail();
+    if(!mail.length){
+      ckModal('📮 信箱','<div style="color:#8A97A6">还没有来信。兑换「女巫来信」后会存在这里。</div>');
+      return;
+    }
+    const html=mail.map(function(m){
+      return '<div style="border-bottom:1px solid #EEF2F7;padding:10px 0"><div style="color:#9AA7B8;font-size:12px;margin-bottom:4px">'+m.d+'</div><div style="line-height:1.9">'+escapeHtml(m.t)+'</div></div>';
+    }).join('');
+    ckModal('📮 信箱（'+mail.length+' 封）', html);
+  };
+
+  function syncMailBtn(){
+    const c=ck();
+    const b=document.querySelector('#witchBubble');
+    if(!b) return;
+    let btn=document.getElementById('mailBtn');
+    if(!btn){
+      btn=document.createElement('button');
+      btn.id='mailBtn';
+      const host=b.parentNode; if(getComputedStyle(host).position==='static') host.style.position='relative';
+      btn.style.cssText='position:absolute;top:6px;right:8px;padding:4px 10px;border:1px solid #E3E9F0;border-radius:16px;background:rgba(255,255,255,.92);color:#8A97A6;font-weight:700;font-size:12px;font-family:inherit;z-index:5;box-shadow:0 2px 6px rgba(120,140,170,.10)';
+      btn.onclick=()=>ckMailbox();
+      host.appendChild(btn);
+    }
+    const n=(c.mailbox||[]).length;
+    btn.textContent='📮 '+(n?n+' 封':'信箱');
+  }
+  const r0=window.render;
+  window.render=function(){ r0.apply(null,arguments); try{ syncMailBtn(); }catch(e){} };
+  try{ syncMailBtn(); }catch(e){}
+})();
+
+</script>
+<script>
+/* 分享单张卡片（带卡面皮肤） */
+const CK_SKIN_ACCENT = {
+  'cs-magic':'#B9A6DC','cs-floral':'#E3B7C4','cs-vine':'#7FA88C','cs-laurel':'#8FA36A',
+  'cs-flame':'#D9906B','cs-cloud':'#8EA9C9','cs-snow':'#90B8CF','cs-stars':'#B9A6DC',
+  'cs-feather':'#A8A29A','cs-clover':'#82B48A','cs-grad':'#9FBFDD','cs-inset':'#B9C6D6',
+  'cs-stripe':'#A8C3DE','cs-ribbon':'#D9C7A7'
+};
+function ckShareCardOf(card){
+  if(!card) return;
+  const c=ck();
+  const accent=CK_SKIN_ACCENT[c.cardSkin]||'#C9D5E4';
+  const W=600,H=820;
+  const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+  const g=cv.getContext('2d');
+  function rr(x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+
+  /* 背景 */
+  const bg=g.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#F7FAFD'); bg.addColorStop(1,'#E9F0F8');
+  g.fillStyle=bg; g.fillRect(0,0,W,H);
+
+  /* 光晕 */
+  const halo=g.createRadialGradient(W/2,300,40,W/2,300,340);
+  halo.addColorStop(0, accent+'55'); halo.addColorStop(1, accent+'00');
+  g.fillStyle=halo; g.fillRect(0,0,W,H);
+
+  /* 卡片 */
+  const CW=360, CH=480, CX=(W-CW)/2, CY=150;
+  g.save();
+  g.shadowColor='rgba(110,130,160,.28)'; g.shadowBlur=30; g.shadowOffsetY=14;
+  g.fillStyle='#FFFFFF'; rr(CX,CY,CW,CH,22); g.fill();
+  g.restore();
+
+  /* 卡面边框 */
+  g.strokeStyle=accent; g.lineWidth=3; rr(CX+2,CY+2,CW-4,CH-4,20); g.stroke();
+
+  /* 四角装饰 */
+  if(c.cardSkin && c.cardSkin!=='cs-inset' && c.cardSkin!=='cs-grad' && c.cardSkin!=='cs-stripe' && c.cardSkin!=='cs-ribbon'){
+    const pts=[[CX+20,CY+20],[CX+CW-20,CY+20],[CX+20,CY+CH-20],[CX+CW-20,CY+CH-20]];
+    pts.forEach(function(p){
+      g.beginPath(); g.arc(p[0],p[1],5,0,Math.PI*2); g.fillStyle=accent; g.fill();
+      g.beginPath(); g.arc(p[0],p[1],9,0,Math.PI*2); g.strokeStyle=accent+'66'; g.lineWidth=1; g.stroke();
+    });
+  }
+  if(c.cardSkin==='cs-ribbon'){ g.fillStyle=accent; g.fillRect(CX+2,CY+2,CW-4,10); }
+  if(c.cardSkin==='cs-stripe'){
+    g.save(); rr(CX+2,CY+2,CW-4,CH-4,20); g.clip();
+    g.strokeStyle='rgba(168,195,222,.35)'; g.lineWidth=6;
+    for(let i=-CH;i<CW+CH;i+=26){ g.beginPath(); g.moveTo(CX+i,CY); g.lineTo(CX+i+CH,CY+CH); g.stroke(); }
+    g.restore();
+  }
+
+  /* 卡片内容 */
+  g.textAlign='center';
+  g.fillStyle='#9AA7B8'; g.font='15px -apple-system,"Microsoft YaHei",sans-serif';
+  g.fillText('心 愿 卡', W/2, CY+70);
+
+  g.fillStyle='#2C3A47'; g.font='bold 28px -apple-system,"Microsoft YaHei",sans-serif';
+  const name=String(card.name||'').replace(/\n/g,'');
+  const lines=[];
+  let cur='';
+  for(const ch of name){
+    if(g.measureText(cur+ch).width>CW-80){ lines.push(cur); cur=ch; }
+    else cur+=ch;
+  }
+  if(cur) lines.push(cur);
+  const startY=CY+150;
+  lines.slice(0,4).forEach(function(ln,i){ g.fillText(ln, W/2, startY+i*42); });
+
+  g.fillStyle=accent; g.font='bold 30px -apple-system,"Microsoft YaHei",sans-serif';
+  g.fillText(fmt(card.cost||card.energy||0)+' 能量', W/2, CY+CH-90);
+
+  /* 页脚 */
+  g.fillStyle='#9AA7B8'; g.font='14px -apple-system,"Microsoft YaHei",sans-serif';
+  g.fillText(today()+' · 心愿抽卡', W/2, CY+CH+70);
+
+  const a=document.createElement('a');
+  a.href=cv.toDataURL('image/png');
+  a.download='心愿卡-'+today()+'.png';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>a.remove(),800);
+  toast('卡片图已生成');
+}
+
+/* 覆盖：使用分享道具 -> 先选卡 */
+(function(){
+  window.ckShareCard = window.ckShare = function(){
+    const list=(state.todayWishes||[]).concat(state.wishInv||[]).concat(state.todayActions||[]);
+    if(!list.length) return toast('还没有可以分享的卡');
+    ckPickCard('选一张卡做成分享图', list, function(card){ ckShareCardOf(card); });
+  };
+})();
+
+</script>
+<script>
+/* 深度报告：方向投入 / 完成率 / 能量收支 / 时间规律 / 断点 / 环比 + AI 建议 */
+window.ckOpenReport = function(){
+  const c=ck();
+  const now=Date.now();
+  const DAY=86400000;
+  const since30=now-30*DAY;
+  const since7=now-7*DAY;
+  const since14=now-14*DAY;
+  const L=(state.ledger||[]);
+  const doneAll=L.filter(r=>r.type==='completeAction');
+  const done30=doneAll.filter(r=>r.t>=since30);
+  const done7=doneAll.filter(r=>r.t>=since7);
+  const donePrev7=doneAll.filter(r=>r.t>=since14 && r.t<since7);
+  const draws7=L.filter(r=>(r.type==='drawAction'||r.type==='drawWish') && r.t>=since7);
+
+  const byDir={};
+  done30.forEach(r=>{ const t=String((r.snapshot&&r.snapshot.tag)||'未分类'); byDir[t]=(byDir[t]||0)+1; });
+  const dirs=Object.keys(byDir).sort((a,b)=>byDir[b]-byDir[a]).slice(0,6);
+  const maxDir=Math.max(1,...dirs.map(d=>byDir[d]));
+
+  const earn=L.filter(r=>r.delta>0 && r.t>=since30).reduce((s,r)=>s+r.delta,0);
+  const spend=L.filter(r=>r.delta<0 && r.t>=since30).reduce((s,r)=>s+r.delta,0);
+  const biggest=done30.slice().sort((a,b)=>b.delta-a.delta)[0];
+
+  const wd=[0,0,0,0,0,0,0];
+  done30.forEach(r=>{ const d=new Date(r.t).getDay(); wd[d]++; });
+  const wdNames=['日','一','二','三','四','五','六'];
+  const maxWd=Math.max(1,...wd);
+
+  const rate = draws7.length ? Math.round(done7.length/draws7.length*100) : 0;
+
+  const weekDone=done7.length, prevDone=donePrev7.length;
+  const diff = weekDone-prevDone;
+
+  const habits=c.habits.map(h=>{
+    const lastD=h.last?Math.round((parseDay(today()).getTime()-parseDay(h.last).getTime())/DAY):'-';
+    return '<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #F2F5F9"><span>'+escapeHtml(h.name)+'</span><span style="color:#7A8798;font-size:13px">连续 '+h.streak+' · 最长 '+h.best+(lastD!=='-'&&lastD>0?(' · 已断 '+lastD+' 天'):'')+'</span></div>';
+  }).join('');
+
+  const dirBars=dirs.map(d=>'<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;font-size:13px"><span>'+escapeHtml(d)+'</span><span style="color:#8A97A6">'+byDir[d]+' 次</span></div><div style="height:6px;border-radius:99px;background:#EEF2F7;overflow:hidden"><i style="display:block;height:100%;width:'+Math.round(byDir[d]/maxDir*100)+'%;background:#7FA8CE;border-radius:99px"></i></div></div>').join('') || '<div style="color:#9AA7B8">本月还没有完成记录</div>';
+
+  const wdBars=wd.map((n,i)=>'<div style="flex:1;text-align:center"><div style="height:'+Math.max(4,Math.round(n/maxWd*54))+'px;background:#9FC0DF;border-radius:5px 5px 0 0"></div><div style="font-size:11px;color:#9AA7B8;margin-top:3px">'+wdNames[i]+'</div></div>').join('');
+
+  ckModal('📊 深度报告（近 30 天）',
+    '<div style="font-weight:800;margin-bottom:8px">近 4 周变化（每格 7 天 · '+dateStr(new Date(now-28*DAY)).slice(5)+' 起）</div>'
+    + (function(){
+        const wk=[]; 
+        for(let i=3;i>=0;i--){
+          const s=now-(i+1)*7*DAY, e=now-i*7*DAY;
+          wk.push({v:doneAll.filter(r=>r.t>=s&&r.t<e).length, s:s});
+        }
+        const mx=Math.max(1,...wk);
+        const up=wk[3].v-wk[0].v;
+        const bars=wk.map(function(o,i){
+          return '<div style="flex:1;text-align:center"><div style="height:'+Math.max(6,Math.round(o.v/mx*72))+'px;background:#7FA8CE;border-radius:6px 6px 0 0"></div><div style="font-size:12px;color:#8A97A6;margin-top:3px">'+(new Date(o.s).getMonth()+1)+'/'+new Date(o.s).getDate()+'</div><div style="font-size:13px;font-weight:800;color:#3A4654">'+o.v+'</div></div>';
+        }).join('');
+        return '<div style="display:flex;gap:8px;align-items:flex-end;height:112px;margin-bottom:6px">'+bars+'</div>'
+          + '<div style="font-size:13px;color:'+(up>=0?'#3C8C5E':'#C25E45')+';margin-bottom:14px">最近 7 天比 4 周前 '+(up>=0?'多完成 '+up:'少完成 '+(-up))+' 件</div>';
+      })()
+
+    + '<div style="font-weight:800;margin-bottom:6px">方向投入</div>' + dirBars
+
+    + '<div style="font-weight:800;margin:14px 0 6px">完成率</div>'
+    + (function(){
+        const draws30=L.filter(function(r){ return (r.type==='drawAction'||r.type==='drawWish') && r.t>=now-30*86400000; });
+        const rate30=draws30.length?Math.round(done30.length/draws30.length*100):0;
+        const und = Math.max(0, draws30.length - done30.length);
+        const shelfA=ACTION_SHELF_DAYS, shelfW=WISH_SHELF_DAYS;
+        const inv=[].concat(state.todayActions||[], state.todayWishes||[], state.actionInv||[], state.wishInv||[]);
+        let stale=0;
+        inv.forEach(function(cd){
+          const exp=cd.expiresAt||0;
+          if(!exp) return;
+          const born=exp - 7*86400000;
+          if(Date.now()-born > 3*86400000) stale++;
+        });
+        let ok=0, slow=0;
+        (state.ledger||[]).forEach(function(r){
+          if(r.type!=='completeAction') return;
+          if(r.t < now-30*86400000) return;
+          ok++;
+        });
+        return '<div style="font-size:13px;color:#5B6B7B;line-height:1.9">近 30 天抽卡 '+draws30.length+' 次，完成 '+done30.length+' 件 · <b>'+rate30+'%</b><br>'
+          + '还差 '+und+' 张没做'
+          + (stale?(' · 仓库里 '+stale+' 张放了 3 天以上'):'')
+          + '</div>';
+      })()
+
+    + '<div style="font-weight:800;margin:14px 0 6px">能量收支</div>'
+    + '<div style="font-size:13px;color:#5B6B7B">收入 +'+fmt(earn)+' · 支出 '+fmt(spend)+' · 结余 '+fmt(earn+spend)
+    + (biggest?('<br>最赚的一笔：'+escapeHtml(String(biggest.name).slice(0,18))+' +'+fmt(biggest.delta)):'') + '</div>'
+
+    + '<div style="font-weight:800;margin:14px 0 6px">时间规律</div>'
+    + '<div style="display:flex;gap:4px;align-items:flex-end;height:70px">'+wdBars+'</div>'
+
+    + '<div style="font-weight:800;margin:14px 0 4px">习惯断点</div>' + habits
+
+    + '<div id="reportAI" style="margin-top:14px;font-size:13px;color:#7A8798">AI 建议生成中…</div>'
+  );
+
+  (async function(){
+    const box=document.getElementById('reportAI');
+    if(!box) return;
+    if(!(typeof aiReady==='function' && aiReady())){
+      box.textContent='（填了 API Key 后这里会给一条建议）';
+      return;
+    }
+    try{
+      const p='用户近 30 天数据：完成行动 '+done30.length+' 件；本周 '+weekDone+' 件、上周 '+prevDone+' 件；'
+        +'本周完成率 '+rate+'%；能量收入 '+fmt(earn)+'、支出 '+fmt(spend)+'；主要方向：'+dirs.slice(0,3).map(d=>d+' '+byDir[d]+'次').join('、')+'。'
+        +'请用一句不超过 40 字的中文，给出一个具体、可执行的建议，不要夸奖，不要解释。';
+      const t=await callAI(p);
+      if(document.getElementById('reportAI')) document.getElementById('reportAI').innerHTML='<b>AI 建议：</b>'+escapeHtml(String(t||'').trim().slice(0,80));
+    }catch(e){
+      if(document.getElementById('reportAI')) document.getElementById('reportAI').textContent='AI 建议获取失败';
+    }
+  })();
+};
+
+</script>
+<script>
+/* 日历：新增 季度 / 年度 总结（结构化 + 每次生成 AI） */
+(function(){
+  const DAY=86400000;
+  function dstr(d){ return dateStr(d); }
+  function startOf(kind){
+    const n=new Date();
+    if(kind==='quarter'){
+      const q=Math.floor(n.getMonth()/3)*3;
+      return new Date(n.getFullYear(),q,1);
+    }
+    if(kind==='year') return new Date(n.getFullYear(),0,1);
+    if(kind==='month') return new Date(n.getFullYear(),n.getMonth(),1);
+    const t=new Date(); const wd=(t.getDay()+6)%7; return new Date(t.getFullYear(),t.getMonth(),t.getDate()-wd);
+  }
+  function stats(from,to){
+    const L=(state.ledger||[]).filter(r=>{ const t=new Date(r.t); return t>=from && t<=to; });
+    const done=L.filter(r=>r.type==='completeAction');
+    const draws=L.filter(r=>r.type==='drawAction'||r.type==='drawWish');
+    const earn=L.filter(r=>r.delta>0).reduce((s,r)=>s+r.delta,0);
+    const spend=L.filter(r=>r.delta<0).reduce((s,r)=>s+r.delta,0);
+    const byDir={};
+    done.forEach(r=>{ const k=String((r.snapshot&&r.snapshot.tag)||'未分类'); byDir[k]=(byDir[k]||0)+1; });
+    return {done:done.length, draws:draws.length, rate: draws.length? Math.round(done.length/draws.length*100):0,
+      earn, spend, byDir, list:done};
+  }
+  function monthsRange(from,count){
+    const out=[];
+    for(let i=0;i<count;i++){
+      const s=new Date(from.getFullYear(),from.getMonth()+i,1);
+      const e=new Date(from.getFullYear(),from.getMonth()+i+1,1);
+      out.push({s:s,e:e,label:(s.getMonth()+1)+'月'});
+    }
+    return out;
+  }
+  async function openPeriod(kind){
+    const from=startOf(kind), to=new Date();
+    const st=stats(from,to);
+    const dirs=Object.keys(st.byDir).sort((a,b)=>st.byDir[b]-st.byDir[a]).slice(0,5);
+    const title = kind==='quarter' ? '📈 季度总结' : '📈 年度总结';
+    const nMonths = kind==='quarter' ? 3 : 12;
+    const bars = monthsRange(from,nMonths).map(function(m){
+      const ms=stats(m.s,new Date(m.e.getTime()-1));
+      return {label:m.label, v:ms.done};
+    });
+    const maxV=Math.max(1,...bars.map(b=>b.v));
+    const barsHtml = kind==='quarter'
+      ? '<div style="display:flex;gap:10px;align-items:flex-end;height:110px;margin-bottom:6px">'+bars.map(b=>'<div style="flex:1;text-align:center"><div style="height:'+Math.max(6,Math.round(b.v/maxV*80))+'px;background:#7FA8CE;border-radius:6px 6px 0 0"></div><div style="font-size:12px;color:#8A97A6;margin-top:4px">'+b.label+'</div><div style="font-size:12px;font-weight:800;color:#3A4654">'+b.v+'</div></div>').join('')+'</div>'
+      : '<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-bottom:6px">'+bars.map(b=>{ const a=Math.min(1,b.v/maxV); return '<div style="border-radius:6px;padding:8px 4px;text-align:center;background:rgba(127,168,206,'+(0.12+a*0.75)+');color:'+(a>0.6?'#fff':'#3A4654')+';font-size:11px"><div style="font-weight:800;font-size:13px">'+b.v+'</div>'+b.label+'</div>'; }).join('')+'</div>';
+
+    const bestHabit = ck().habits.slice().sort((a,b)=>(b.best||0)-(a.best||0))[0];
+    const biggest = st.list.slice().sort((a,b)=>b.delta-a.delta)[0];
+
+    ckModal(title+'（'+dstr(from)+' ~ '+dstr(to)+'）',
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;text-align:center">'
+      + '<div style="background:#F7F9FC;border-radius:10px;padding:10px 4px"><div style="font-size:20px;font-weight:800">'+st.done+'</div><div style="font-size:12px;color:#8A97A6">完成</div></div>'
+      + '<div style="background:#F7F9FC;border-radius:10px;padding:10px 4px"><div style="font-size:20px;font-weight:800">'+st.rate+'%</div><div style="font-size:12px;color:#8A97A6">完成率</div></div>'
+      + '<div style="background:#F7F9FC;border-radius:10px;padding:10px 4px"><div style="font-size:20px;font-weight:800">'+fmt(st.earn+st.spend)+'</div><div style="font-size:12px;color:#8A97A6">能量结余</div></div>'
+      + '</div>'
+      + '<div style="font-weight:800;margin-bottom:8px">'+(kind==='quarter'?'逐月完成':'逐月热力')+'</div>'
+      + barsHtml
+      + '<div style="font-weight:800;margin:14px 0 6px">方向</div>'
+      + (dirs.length? dirs.map(d=>'<div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0"><span>'+escapeHtml(d)+'</span><span style="color:#8A97A6">'+st.byDir[d]+' 次</span></div>').join('') : '<div style="color:#9AA7B8">还没有记录</div>')
+      + '<div style="font-weight:800;margin:14px 0 6px">里程碑</div>'
+      + '<div style="font-size:13px;color:#5B6B7B;line-height:1.9">'
+      + (bestHabit&&bestHabit.best? ('最长连续：'+escapeHtml(bestHabit.name)+' '+bestHabit.best+' 天<br>'):'')
+      + (biggest? ('单笔最高：'+escapeHtml(String(biggest.name).slice(0,16))+' +'+fmt(biggest.delta)):'')
+      + '</div>'
+      + '<div id="periodAI" style="margin-top:14px;font-size:13px;color:#7A8798;line-height:1.9">AI 正在回顾…</div>'
+    );
+
+    const box=document.getElementById('periodAI');
+    if(!(typeof aiReady==='function' && aiReady())){ if(box) box.textContent='（填了 API Key 后这里会有 AI 的回顾）'; return; }
+    try{
+      const p='用户'+ (kind==='quarter'?'本季度':'今年') +'的数据：完成行动 '+st.done+' 件，完成率 '+st.rate+'%，能量收入 '+fmt(st.earn)+'、支出 '+fmt(st.spend)+'，'
+        +'主要方向：'+(dirs.slice(0,3).join('、')||'无')+'。请用 3 句话做一次简短回顾：第一句说事实，第二句指出一个规律，第三句给一个下阶段的建议。中文，不要引号，不要客套。';
+      const t=await callAI(p);
+      if(document.getElementById('periodAI')) document.getElementById('periodAI').innerHTML=escapeHtml(String(t||'').trim().slice(0,220));
+    }catch(e){
+      if(document.getElementById('periodAI')) document.getElementById('periodAI').textContent='AI 回顾失败：'+e.message;
+    }
+  }
+
+  /* 注入两个按钮 */
+  function inject(){
+    const bm=document.getElementById('btnMonthly');
+    if(!bm || document.getElementById('btnQuarter')) return;
+    const make=function(id,text,fn){
+      const b=document.createElement('button');
+      b.className='btn btn-ghost btn-sm'; b.id=id; b.textContent=text; b.onclick=fn;
+      bm.parentNode.insertBefore(b, bm.nextSibling);
+      return b;
+    };
+    make('btnQuarter','本季总结',function(){ openPeriod('quarter'); });
+    make('btnYear','本年总结',function(){ openPeriod('year'); });
+  }
+  const r0=window.render;
+  window.render=function(){ r0.apply(null,arguments); try{ inject(); }catch(e){} };
+  setTimeout(inject,300);
+})();
+
+</script>
+<script>
+/* 周/月总结：数据摘要 + AI 复盘（每次生成） */
+(function(){
+  const DAY=86400000;
+  function startOf(kind){
+    const n=new Date();
+    if(kind==='month') return new Date(n.getFullYear(),n.getMonth(),1);
+    const wd=(n.getDay()+6)%7;
+    return new Date(n.getFullYear(),n.getMonth(),n.getDate()-wd);
+  }
+  function calc(from,to){
+    const L=(state.ledger||[]).filter(r=>{ const t=new Date(r.t); return t>=from && t<=to; });
+    const done=L.filter(r=>r.type==='completeAction');
+    const draws=L.filter(r=>r.type==='drawAction'||r.type==='drawWish');
+    const earn=L.filter(r=>r.delta>0).reduce((s,r)=>s+r.delta,0);
+    const spend=L.filter(r=>r.delta<0).reduce((s,r)=>s+r.delta,0);
+    const byDir={};
+    done.forEach(r=>{ const k=String((r.snapshot&&r.snapshot.tag)||'未分类'); byDir[k]=(byDir[k]||0)+1; });
+    return {done:done.length,draws:draws.length,rate:draws.length?Math.round(done.length/draws.length*100):0,earn,spend,byDir,list:done};
+  }
+  window.generateSummary = async function(type){
+    const from=startOf(type==='month'?'month':'week');
+    const to=new Date();
+    const st=calc(from,to);
+    const dirs=Object.keys(st.byDir).sort((a,b)=>st.byDir[b]-st.byDir[a]).slice(0,4);
+    const maxD=Math.max(1,...dirs.map(d=>st.byDir[d]));
+    const title=(type==='month'?'本月总结':'本周总结')+'（'+dateStr(from)+' ~ '+dateStr(to)+'）';
+    const dirHtml=dirs.length? dirs.map(d=>'<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;font-size:13px"><span>'+escapeHtml(d)+'</span><span style="color:#8A97A6">'+st.byDir[d]+' 次</span></div><div style="height:6px;border-radius:99px;background:#EEF2F7;overflow:hidden"><i style="display:block;height:100%;width:'+Math.round(st.byDir[d]/maxD*100)+'%;background:#7FA8CE;border-radius:99px"></i></div></div>').join('') : '<div style="color:#9AA7B8">这段时间还没有完成的记录</div>';
+    ckModal(title,
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;text-align:center">'
+      + '<div style="background:#F7F9FC;border-radius:10px;padding:10px 4px"><div style="font-size:20px;font-weight:800">'+st.done+'</div><div style="font-size:12px;color:#8A97A6">完成</div></div>'
+      + '<div style="background:#F7F9FC;border-radius:10px;padding:10px 4px"><div style="font-size:20px;font-weight:800">'+st.rate+'%</div><div style="font-size:12px;color:#8A97A6">完成率</div></div>'
+      + '<div style="background:#F7F9FC;border-radius:10px;padding:10px 4px"><div style="font-size:20px;font-weight:800">'+fmt(st.earn+st.spend)+'</div><div style="font-size:12px;color:#8A97A6">能量结余</div></div>'
+      + '</div>'
+      + '<div style="font-weight:800;margin-bottom:6px">方向</div>' + dirHtml
+      + '<div id="sumAI" style="margin-top:14px;font-size:14px;line-height:1.9;color:#7A8798">AI 正在写…</div>'
+    );
+    const box=document.getElementById('sumAI');
+    if(!(typeof aiReady==='function' && aiReady())){
+      if(box) box.textContent='（填了 API Key 后这里会有 AI 的复盘）';
+      return;
+    }
+    try{
+      const p='用户'+(type==='month'?'本月':'本周')+'的数据：完成行动 '+st.done+' 件，抽卡 '+st.draws+' 次，完成率 '+st.rate+'%，能量收入 '+fmt(st.earn)+'、支出 '+fmt(st.spend)+'。'
+        +'主要方向：'+(dirs.slice(0,3).map(d=>d+' '+st.byDir[d]+'次').join('、')||'无')+'。'
+        +'请写一段 3-4 句的简短复盘：说事实、点出一个问题、给一个下周可执行的动作。中文，不要客套，不要夸。';
+      const t=await callAI(p);
+      if(document.getElementById('sumAI')) document.getElementById('sumAI').innerHTML=escapeHtml(String(t||'').trim().slice(0,260));
+    }catch(e){
+      if(document.getElementById('sumAI')) document.getElementById('sumAI').textContent='AI 失败：'+e.message;
+    }
+  };
+})();
+
+</script>
+
+<script>
+/* 抽卡特效：光效 / 小猫 / 小狗 / 小鸟 —— 合并为一个道具 */
+(function(){
+  const FX=[['glow','光效','✨'],['cat','小猫','🐱'],['dog','小狗','🐶'],['bird','小鸟','🐦']];
+  const EMAP={'glow':'✨','cat':'🐱','dog':'🐶','bird':'🐦'};
+  const NMAP={'glow':'光效','cat':'小猫','dog':'小狗','bird':'小鸟'};
+
+  /* 移除独立的小动物商品 */
+  try{
+    for(let i=CK_ITEMS.length-1;i>=0;i--){ if(CK_ITEMS[i].id==='pet') CK_ITEMS.splice(i,1); }
+    if(CK_READY && CK_READY.delete) CK_READY.delete('pet');
+  }catch(e){}
+
+  window.ckFxPicker=function(){
+    const c=ck();
+    const cur=(c.fx&&c.fx.k)||'';
+    const ok = c.fx && c.fx.k && c.fx.until && Date.now()<c.fx.until;
+    if(ok){
+      const d=Math.max(1,Math.ceil((c.fx.until-Date.now())/86400000));
+      return toast('已经选好了，'+d+' 天后才能换');
+    }
+    if(!c.propFx) return toast('没有可用的特效道具，先去兑换');
+    const sw=FX.map(function(f){
+      const on=cur===f[0];
+      return '<button data-fx="'+f[0]+'" style="flex:1;min-width:70px;padding:10px 6px;border-radius:12px;border:1.5px solid '+(on?'#7FA8CE':'#E3E9F0')+';background:'+(on?'#EAF2FA':'#fff')+';font-weight:800;font-size:13px;font-family:inherit"><div>'+(window.ckPetIcon?ckPetIcon(f[0],40):f[2])+'</div>'+f[1]+'</button>';
+    }).join('');
+    ckModal('✨ 选择抽卡特效','<div style="color:#7A8798;font-size:13px;margin-bottom:10px">选好后 3 天内不能改。小动物会在抽到卡时跑来送给你。</div><div style="display:flex;gap:8px">'+sw+'</div>');
+    const m=document.getElementById('ckModal');
+    if(!m) return;
+    m.querySelectorAll('[data-fx]').forEach(function(b){
+      b.onclick=function(){
+        const cc=ck(); cc.fx={k:b.dataset.fx, until:Date.now()+3*86400000}; cc.propFx=false; cc.cardFx=true;
+        save(); render(); m.remove();
+        toast('特效：'+NMAP[b.dataset.fx]);
+        if(b.dataset.fx!=='glow') ckPetPlay(b.dataset.fx,'示例心愿卡');
+      };
+    });
+  };
+
+  window.ckPetPlay=window.ckPetPlay||function(kind,title){
+    const emoji=EMAP[kind]||'🐱';
+    const old=document.getElementById('petStage'); if(old) old.remove();
+    const st=document.createElement('div');
+    st.id='petStage';
+    st.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;display:flex;align-items:center;justify-content:center;background:rgba(247,250,253,.86);backdrop-filter:blur(2px)';
+    st.innerHTML='<div id="petAnimal" style="position:absolute;left:-90px;font-size:64px;transition:transform 1.05s cubic-bezier(.22,.9,.3,1)">'+emoji+'</div>'
+      + '<div id="petCard" style="opacity:0;transform:translateY(16px) scale(.9);transition:all .45s ease;background:#fff;border-radius:16px;box-shadow:0 16px 40px rgba(80,110,150,.28);padding:22px 26px;max-width:70%;text-align:center;font-weight:800;color:#2C3A47;font-size:15px">'+escapeHtml(String(title||'').slice(0,24))+'</div>';
+    document.body.appendChild(st);
+    requestAnimationFrame(function(){
+      const a=document.getElementById('petAnimal');
+      if(a) a.style.transform='translateX(calc(50vw - 120px))';
+      setTimeout(function(){
+        const cd=document.getElementById('petCard');
+        if(cd){ cd.style.opacity='1'; cd.style.transform='translateY(0) scale(1)'; }
+      },900);
+    });
+  };
+
+  /* 包装 showReward：有动物特效就先播动画再弹卡 */
+  if(typeof window.showReward==='function' && !window.__srWrapped){
+    window.__srWrapped=true;
+    const sr0=window.showReward;
+    window.showReward=function(card,type){
+      let k='';
+      try{
+        const c=ck();
+        if(c.fx && c.fx.k && c.fx.until && Date.now()<c.fx.until) k=c.fx.k;
+      }catch(e){}
+      if(false && k && k!=='glow' && window.ckPetPlay){
+        try{ window.ckPetPlay(k, card&&card.name); }catch(e){}
+        setTimeout(function(){
+          const st=document.getElementById('petStage');
+          if(st){ st.style.transition='opacity .35s'; st.style.opacity='0'; setTimeout(function(){ st.remove(); },380); }
+          try{ sr0.call(null,card,type); }catch(e){}
+        }, 1500);
+        return;
+      }
+      return sr0.apply(null,arguments);
+    };
+  }
+
+  /* 道具行 */
+  function fxRow(){
+    const c=ck();
+    const box=document.getElementById('propExtra')||document.getElementById('tokenBox');
+    if(!box) return;
+    let el=document.getElementById('fxRow');
+    const active=c.fx && c.fx.k && c.fx.until && Date.now()<c.fx.until;
+    if(!active && !c.propFx){ if(el) el.remove(); return; }
+    if(!el){ el=document.createElement('div'); el.id='fxRow'; el.className='coin-item'; box.appendChild(el); }
+    if(c.propFx){
+      el.innerHTML='<div class="coin-item-main"><span class="coin-item-name">✨ 抽卡特效 · 待选择</span><span class="coin-item-desc">光效 / 小猫 / 小狗 / 小鸟</span></div><button class="btn btn-sm btn-primary" id="fxPickBtn">选择</button>';
+    }else{
+      const d=Math.max(0,Math.ceil((c.fx.until-Date.now())/86400000));
+      el.innerHTML='<div class="coin-item-main"><span class="coin-item-name">'+(window.ckPetIcon?ckPetIcon(c.fx.k,22):EMAP[c.fx.k])+' '+(NMAP[c.fx.k]||'特效')+' · 还剩 '+d+' 天</span><span class="coin-item-desc">抽卡时生效</span></div>'+(c.fx.k!=='glow'?'<button class="btn btn-sm btn-ghost" id="fxPreviewBtn">预览</button>':'');
+    }
+    const b=document.getElementById('fxPickBtn');
+    const pb0=document.getElementById('fxPreviewBtn');
+    if(pb0) pb0.onclick=function(){ ckPetPlay(c.fx.k,'示例心愿卡'); };
+    if(b) b.onclick=()=>ckFxPicker();
+  }
+
+  const a0=window.ckApply;
+  window.ckApply=function(it){
+    if(it && it.e==='fx'){ const c=ck(); c.propFx=true; c.own['fx']=true; toast('特效道具已放入「仓库 → 道具」'); return; }
+    return a0.call(null,it);
+  };
+  const r0=window.render;
+  window.render=function(){ r0.apply(null,arguments); try{ fxRow(); }catch(e){} };
+  try{ fxRow(); }catch(e){}
+})();
+
+</script>
+
+
+
+
+
+
+<script>
+/* 小动物送卡 —— 干净重写版（不依赖任何其它模块） */
+(function(){
+  var ART={
+    cat:"<svg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'><ellipse cx='32' cy='41' rx='18' ry='14' fill='#F3D9B8'/><path d='M19 29l-3-11 11 6z' fill='#F3D9B8'/><path d='M45 29l3-11-11 6z' fill='#F3D9B8'/><circle cx='26' cy='38' r='2.4' fill='#4A3B2C'/><circle cx='38' cy='38' r='2.4' fill='#4A3B2C'/><path d='M30 44q2 2 4 0' stroke='#C98B6B' stroke-width='1.8' fill='none' stroke-linecap='round'/><path d='M50 39q6 2 3 9' stroke='#F3D9B8' stroke-width='4' fill='none' stroke-linecap='round'/></svg>",
+    dog:"<svg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'><ellipse cx='32' cy='41' rx='18' ry='14' fill='#E8C9A0'/><ellipse cx='18' cy='31' rx='5' ry='9' fill='#C9A276'/><ellipse cx='46' cy='31' rx='5' ry='9' fill='#C9A276'/><circle cx='26' cy='38' r='2.4' fill='#4A3B2C'/><circle cx='38' cy='38' r='2.4' fill='#4A3B2C'/><ellipse cx='32' cy='45' rx='3.6' ry='2.8' fill='#4A3B2C'/></svg>",
+    bird:"<svg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'><ellipse cx='32' cy='37' rx='16' ry='13' fill='#8FC7D8'/><circle cx='32' cy='22' r='9.5' fill='#A9D8E6'/><circle cx='28' cy='20' r='2' fill='#33454F'/><path d='M37 25l8 3-8 3z' fill='#F0B37E'/><path d='M19 37q-8-4-9-13 8 1 11 9z' fill='#6EAFC4'/><path d='M45 39q7 0 9 5-6 2-9-1z' fill='#6EAFC4'/><path d='M26 50l-3 6M38 50l3 6' stroke='#E0A96D' stroke-width='2' stroke-linecap='round'/></svg>"
+  };
+  var NAME={cat:'小猫',dog:'小狗',bird:'小鸟',glow:'光效'};
+
+  window.ckPetIcon=function(kind,size){
+    var s=size||48;
+    if(kind==='glow') return '<span style="font-size:'+s+'px">✨</span>';
+    var a=ART[kind]||ART.cat;
+    return '<span style="display:inline-block;width:'+s+'px;height:'+s+'px;line-height:0">'+a.replace('<svg ','<svg width="'+s+'" height="'+s+'" ')+'</span>';
+  };
+
+  window.ckPetPlay=function(kind,title){
+    try{
+      var old=document.getElementById('petStage');
+      if(old && old.parentNode) old.parentNode.removeChild(old);
+      var box=document.createElement('div');
+      box.id='petStage';
+      box.style.cssText='position:fixed;left:0;top:0;right:0;bottom:0;z-index:99999;pointer-events:none;background:rgba(247,250,253,.92)';
+      var icon=window.ckPetIcon(kind,86);
+      var top=18+Math.random()*40;
+      var fromLeft=Math.random()<0.5;
+      var startX=fromLeft?-25:115;
+      var endX=fromLeft?(28+Math.random()*22):(46+Math.random()*22);
+      box.innerHTML=
+        '<div id="petAnimal" style="position:absolute;top:'+top+'%;left:'+startX+'%;transition:transform 1.1s cubic-bezier(.34,1.12,.44,1)">'
+          +'<div style="animation:petBob .5s ease-in-out infinite alternate">'+icon+'</div></div>'
+        +'<div id="petCard" style="position:absolute;left:50%;top:56%;transform:translate(-50%,26px) scale(.88);opacity:0;transition:all .5s cubic-bezier(.34,1.3,.5,1);background:#FFFDF8;border:1px solid #EADFC8;border-radius:18px;box-shadow:0 18px 44px rgba(90,115,150,.22);padding:22px 26px;max-width:74%;text-align:center;color:#2C3A47">'
+          +'<div style="font-size:11px;letter-spacing:2px;color:#9AA7B8;margin-bottom:8px">今 日 心 愿</div>'
+          +'<div style="font-weight:800;font-size:16px;line-height:1.6">'+String(title||'').replace(/[<>&]/g,'').slice(0,24)+'</div></div>'
+        +'<style>@keyframes petBob{from{transform:translateY(0)}to{transform:translateY(-6px)}}</style>';
+      document.body.appendChild(box);
+      setTimeout(function(){
+        var a=document.getElementById('petAnimal');
+        if(a) a.style.transform='translateX('+(endX-startX)+'vw)';
+      },30);
+      setTimeout(function(){
+        var cd=document.getElementById('petCard');
+        if(cd){ cd.style.opacity='1'; cd.style.transform='translate(-50%,0) scale(1)'; }
+      },900);
+      setTimeout(function(){
+        var s2=document.getElementById('petStage');
+        if(s2 && s2.parentNode){ s2.parentNode.removeChild(s2); }
+      },1900);
+    }catch(e){}
+  };
+
+  /* 供 showReward 源码分支调用 */
+  window.__petOn=function(){
+    try{ var c=ck(); var f=c.fx; return !!(f && f.k && f.k!=='glow' && f.until && Date.now()<f.until); }
+    catch(e){ return false; }
+  };
+  window.__petReveal=function(card,type){
+    try{
+      var kind='cat'; try{ kind=(ck().fx&&ck().fx.k)||'cat'; }catch(e){}
+      window.ckPetPlay(kind, card && card.name);
+      setTimeout(function(){
+        window.__petSkip=true;
+        try{ showReward(card,type); }catch(e){}
+        window.__petSkip=false;
+      },1200);
+    }catch(e){
+      try{ showReward(card,type); }catch(e2){}
+    }
+  };
+})();
+
+</script>
+<script>
+/* 兑换道具先入库，在「仓库 → 道具」里使用 */
+(function(){
+  const MAP={
+    report:{fn:'ckOpenReport', name:'📊 深度报告', desc:'近 30 天完整分析'},
+    album:{fn:'ckOpenAlbum',  name:'📖 打卡纪念册', desc:'热力图 + 习惯连续'},
+    wheel:{fn:'ckWheel',      name:'🎡 幸运转盘', desc:'转一次拿奖励'},
+    title:{fn:'ckSetTitle',   name:'🏷 称号', desc:'给自己设个称号'},
+    witchName:{fn:'ckWitchName', name:'💬 女巫称呼', desc:'让女巫怎么称呼你'}
+  };
+  function P(){ const c=ck(); if(!c.pending||typeof c.pending!=='object') c.pending={}; return c.pending; }
+
+  const a0=window.ckApply;
+  window.ckApply=function(it){
+    if(it && MAP[it.e]){
+      const p=P(); p[it.e]=(p[it.e]||0)+1;
+      save(); render();
+      toast(MAP[it.e].name+' 已放入「仓库 → 道具」');
+      return;
+    }
+    return a0.call(null,it);
+  };
+
+  function rows(){
+    const c=ck();
+    const box=document.getElementById('propExtra')||document.getElementById('tokenBox');
+    if(!box) return;
+    const p=P();
+    Object.keys(MAP).forEach(function(k){
+      const id='pend-'+k;
+      let el=document.getElementById(id);
+      const n=p[k]||0;
+      if(!n){ if(el) el.remove(); return; }
+      if(!el){ el=document.createElement('div'); el.id=id; el.className='coin-item'; box.appendChild(el); }
+      el.innerHTML='<div class="coin-item-main"><span class="coin-item-name">'+MAP[k].name+(n>1?(' ×'+n):'')+'</span><span class="coin-item-desc">'+MAP[k].desc+'</span></div><button class="btn btn-sm btn-primary" data-use="'+k+'">使用</button>';
+    });
+    box.querySelectorAll('[data-use]').forEach(function(b){
+      b.onclick=function(){
+        const k=b.dataset.use;
+        const pp=P();
+        if(!(pp[k]>0)) return;
+        pp[k]--;
+        save();
+        const f=window[MAP[k].fn];
+        if(typeof f==='function'){ try{ f(); }catch(e){ toast('使用失败：'+e.message); } }
+        else toast('功能缺失：'+MAP[k].fn);
+        render();
+      };
+    });
+  }
+  const r0=window.render;
+  window.render=function(){ r0.apply(null,arguments); try{ rows(); }catch(e){} };
+  try{ rows(); }catch(e){}
+})();
+
+</script>
+<script>
+/* 习惯管理：最多 6 个，可增删改，历史记录保留 */
+(function(){
+  window.ckManageHabits=function(){
+    const c=ck();
+    const rows=c.habits.map(function(h,i){
+      return '<div class="coin-item" style="margin-bottom:6px"><div class="coin-item-main"><span class="coin-item-name">'+escapeHtml(h.name)+'</span><span class="coin-item-desc">连续 '+h.streak+' · 最长 '+h.best+'</span></div>'
+        + '<button class="btn btn-sm btn-ghost" data-rename="'+i+'">改名</button>'
+        + '<button class="btn btn-sm btn-ghost" data-del="'+i+'" style="margin-left:6px;color:#C25E45">删除</button></div>';
+    }).join('');
+    const addBtn = c.habits.length>=6 ? '<div style="color:#9AA7B8;font-size:13px;margin-top:10px">最多 6 个，已满</div>'
+      : '<button class="btn btn-primary btn-sm" id="habitAddBtn" style="margin-top:10px">+ 添加习惯</button>';
+    ckModal('⚙️ 管理打卡习惯', rows + addBtn
+      + '<div style="margin-top:12px;color:#9AA7B8;font-size:12px;line-height:1.7">删除习惯不会清除历史记录，纪念册的热力图仍按当天打卡次数统计。</div>');
+    const m=document.getElementById('ckModal');
+    if(!m) return;
+    m.querySelectorAll('[data-rename]').forEach(function(b){
+      b.onclick=function(){
+        const i=parseInt(b.dataset.rename,10);
+        const cur=c.habits[i].name;
+        const nn=prompt('新的习惯名称：', cur);
+        if(nn===null) return;
+        const name=String(nn).trim().slice(0,10);
+        if(!name) return toast('名称不能为空');
+        c.habits[i].name=name; save(); render(); ckManageHabits();
+      };
+    });
+    m.querySelectorAll('[data-del]').forEach(function(b){
+      b.onclick=function(){
+        const i=parseInt(b.dataset.del,10);
+        if(!confirm('删除「'+c.habits[i].name+'」？历史记录会保留。')) return;
+        c.habits.splice(i,1); save(); render(); ckManageHabits();
+      };
+    });
+    const ab=document.getElementById('habitAddBtn');
+    if(ab) ab.onclick=function(){
+      const name=prompt('新习惯的名称（最多 6 个字）：','');
+      if(name===null) return;
+      const n=String(name).trim().slice(0,6);
+      if(!n) return toast('名称不能为空');
+      if(c.habits.length>=6) return toast('最多 6 个习惯');
+      c.habits.push({ id:'h'+Date.now(), name:n, streak:0, best:0, last:'', ms:{} });
+      save(); render(); ckManageHabits();
+    };
+  };
+
+  /* 在打卡页的习惯区域加一个入口按钮 */
+  function injectBtn(){
+    const host=document.getElementById('checkinToday');
+    if(!host || document.getElementById('habitManageBtn')) return;
+    const bar=document.createElement('div');
+    host.style.position='relative';
+    bar.style.cssText='display:flex;justify-content:flex-end;margin:10px 0 0';
+    bar.innerHTML='<button class="btn btn-sm btn-ghost" id="habitManageBtn">⚙️ 管理习惯</button>';
+    host.appendChild(bar);
+    document.getElementById('habitManageBtn').onclick=function(){ ckManageHabits(); };
+  }
+  const r0=window.render;
+  window.render=function(){ r0.apply(null,arguments); try{ injectBtn(); }catch(e){} };
+  try{ injectBtn(); }catch(e){}
+})();
+
+</script>
+<script>
+/* 挑战：4 天一轮；到期可逐个选择「保留」或「换掉」；保留则进度不清、奖励重新计 */
+(function(){
+  const key=function(){ return Math.floor(Date.now()/86400000/4); };
+
+  window.ckRefreshWeek=function(force){
+    const c=ck();
+    const k=key();
+    const bad=!Array.isArray(c.ch)||c.ch.some(x=>!x||!x.text);
+    if(!force && !bad && c.week===k && c.ch.length) return;
+    if(!force && !bad && c.week!==k && c.ch.length){
+      /* 到期：等玩家决定保留/换掉，先不自动刷新 */
+      c.week=k;
+      if(!Array.isArray(c.ch)) c.ch=[];
+      save();
+      setTimeout(function(){ try{ ckChallengeRefreshDialog(); }catch(e){} }, 400);
+      return;
+    }
+    c.week=k;
+    c.ch=ckBuildChallenges();
+    c.chBonus=false;
+    save();
+  };
+
+  window.ckChallengeRefreshDialog=function(){
+    const c=ck();
+    if(!c.ch||!c.ch.length) return;
+    const rows=c.ch.map(function(ch,i){
+      return '<div class="coin-item" style="margin-bottom:8px" data-row="'+i+'">'
+        + '<div class="coin-item-main"><span class="coin-item-name">'+escapeHtml(ch.text)+'</span>'
+        + '<span class="coin-item-desc">上轮 '+((ch.done||0))+'/'+ch.target+' · 累计 '+(ch.total||0)+' 次</span></div>'
+        + '<button class="btn btn-sm btn-primary" data-keep="'+i+'">保留</button>'
+        + '<button class="btn btn-sm btn-ghost" data-swap="'+i+'" style="margin-left:6px">换掉</button>'
+        + '</div>';
+    }).join('');
+    ckModal('🔄 本轮挑战到期', '<div style="color:#7A8798;font-size:13px;margin-bottom:10px">保留：内容不变、进度继续、奖励从 0 重新算；换掉：重新抽一个。</div>'+rows
+      + '<button class="btn btn-primary" id="chDoneBtn" style="width:100%;margin-top:10px">确认</button>');
+    const m=document.getElementById('ckModal');
+    if(!m) return;
+    const decision={};
+    m.querySelectorAll('[data-keep]').forEach(function(b){
+      b.onclick=function(){
+        const i=+b.dataset.keep; decision[i]='keep';
+        b.textContent='已保留'; b.className='btn btn-sm btn-primary';
+        const sw=m.querySelector('[data-swap="'+i+'"]'); if(sw) sw.className='btn btn-sm btn-ghost';
+      };
+    });
+    m.querySelectorAll('[data-swap]').forEach(function(b){
+      b.onclick=function(){
+        const i=+b.dataset.swap; decision[i]='swap';
+        b.textContent='将换掉'; b.className='btn btn-sm btn-primary';
+        const kp=m.querySelector('[data-keep="'+i+'"]'); if(kp) kp.className='btn btn-sm btn-ghost';
+      };
+    });
+    const done=m.querySelector('#chDoneBtn');
+    if(done) done.onclick=function(){
+      const fresh=ckBuildChallenges();
+      let fi=0;
+      c.ch=c.ch.map(function(ch,i){
+        if(decision[i]==='keep'){
+          ch.claimed=false;           /* 奖励重新算，进度保留 */
+          ch.rewarded=0;
+          return ch;
+        }
+        const nf=fresh[fi++];
+        return nf || {id:'x'+i, text:ch.text, target:4, done:0, claimed:false, total:ch.total||0};
+      });
+      c.chBonus=false;
+      save(); render(); m.remove();
+      toast('本轮挑战已就绪');
+    };
+  };
+
+  /* 累计次数 */
+  const d0=window.ckDoChallenge;
+  window.ckDoChallenge=function(i){
+    const c=ck(); const ch=c.ch&&c.ch[i];
+    if(ch && !ch.claimed && (ch.done||0) < ch.target){
+      /* total 由新逻辑维护 */
+    }
+    return d0.apply(null,arguments);
+  };
+
+  /* 页头文案 */
+  function fixTitle(){
+    try{
+      document.querySelectorAll('.panel-title').forEach(function(el){
+        if(el.textContent.indexOf('本周挑战')>=0){
+          el.childNodes.forEach(function(nd){ if(nd.nodeType===3){ nd.textContent=nd.textContent.replace(/本周挑战/g,'本轮挑战'); } });
+        }
+      });
+      document.querySelectorAll('.panel-sub').forEach(function(el){
+        if(el.textContent.indexOf('已完成')>=0 && el.textContent.indexOf('/')>=0 && el.textContent.indexOf('本轮')<0){
+          el.textContent='本轮 '+el.textContent.replace('本周','');
+        }
+      });
+    }catch(e){}
+  }
+  const r0=window.render;
+  window.render=function(){ r0.apply(null,arguments); try{ fixTitle(); }catch(e){} };
+  try{ fixTitle(); }catch(e){}
+})();
+
+</script>
+<script>
+/* 本轮挑战：倒计时 + 累计里程碑 */
+(function(){
+  const DAY=86400000;
+  function leftText(){
+    const c=ck();
+    const start=c.week*4*DAY;
+    const end=start+4*DAY;
+    const ms=end-Date.now();
+    if(ms<=0) return '待刷新';
+    const d=Math.floor(ms/DAY), h=Math.floor(ms%DAY/3600000);
+    return d>0 ? ('剩 '+d+' 天 '+h+' 小时') : ('剩 '+h+' 小时');
+  }
+  function flip(){
+    try{
+      document.querySelectorAll('.panel-title').forEach(function(el){
+        if(el.textContent.indexOf('本轮挑战')>=0){
+          const box=el.parentNode;
+          let t=box.querySelector('#chCountdown');
+          if(!t){ t=document.createElement('span'); t.id='chCountdown'; t.style.cssText='margin-left:8px;font-size:12px;color:#8A97A6;font-weight:600'; el.appendChild(t); }
+          t.textContent='· '+leftText();
+        }
+      });
+    }catch(e){}
+  }
+  const r0=window.render;
+  window.render=function(){ r0.apply(null,arguments); try{ flip(); }catch(e){} };
+  try{ flip(); }catch(e){}
+})();
+</script><script>
+/* 挑战：每天完成即得奖励（与固定挑战一致）+ 累计里程碑 */
+(function(){
+  const MS=[{n:7,coin:8},{n:14,coin:15},{n:30,coin:30}];
+
+  function totalDone(c){
+    return (c.ch||[]).reduce(function(s,x){ return s + (x.total||0); }, 0);
+  }
+  function checkMs(){
+    const c=ck();
+    if(!c.chMs) c.chMs={};
+    const t=totalDone(c);
+    MS.forEach(function(m){
+      if(t>=m.n && !c.chMs[m.n]){
+        c.chMs[m.n]=true;
+        c.coins += m.coin;
+        toast('挑战里程碑 '+m.n+' 次达成 +'+m.coin+' 金币');
+      }
+    });
+  }
+
+  const d0=window.ckDoChallenge;
+  window.ckDoChallenge=function(i){
+    const c=ck(); const ch=c.ch&&c.ch[i];
+    if(!ch || ch.claimed){
+      if(ch && ch.claimed) toast('这个挑战已经完成了');
+      return;
+    }
+    if((ch.done||0) >= ch.target) return toast('已经打满了');
+    /* 先累计，再走原逻辑（原逻辑会 +1 并渲染） */
+    ch.total=(ch.total||0)+1;
+    d0.apply(null,arguments);
+    /* 每天完成即得奖励 */
+    const nc=ck();
+    nc.coins += 1;
+    const cch=nc.ch&&nc.ch[i];
+    if(cch && (cch.done||0) >= cch.target){ cch.claimed=true; }
+    save(); render();
+    try{ checkMs(); render(); }catch(e){}
+    toast('完成一次 +1 金币' + ((cch&&cch.claimed)?' · 本轮目标达成':''));
+  };
+
+  /* 领取按钮：不再需要，直接提示已自动发放 */
+  window.ckClaimChallenge=function(i){
+    const c=ck(); const ch=c.ch&&c.ch[i];
+    if(!ch) return;
+    if((ch.done||0) < ch.target) return toast('还没打满');
+    if(ch.claimed) return toast('奖励已完成发放');
+    ch.claimed=true; save(); render();
+    toast('已标记完成');
+  };
+
+  /* 文案：固定挑战 -> 固定挑战 */
+  function rename(){
+    try{
+      document.querySelectorAll('.panel-title,.panel-sub,.habit-name,.coin-item-name,button,span,div').forEach(function(el){
+        if(el.children.length===0 && el.textContent && el.textContent.indexOf('固定挑战')>=0){
+          el.textContent=el.textContent.replace(/固定挑战/g,'固定挑战');
+        }
+      });
+    }catch(e){}
+  }
+  const r0=window.render;
+  window.render=function(){ r0.apply(null,arguments); try{ rename(); }catch(e){} };
+  try{ rename(); }catch(e){}
+})();
+
+</script>
+<script>
+/* 挑战：每个挑战每天只能完成一次 */
+(function(){
+  const d0=window.ckDoChallenge;
+  window.ckDoChallenge=function(i){
+    const c=ck(); const ch=c.ch&&c.ch[i];
+    if(!ch) return d0.apply(null,arguments);
+    const t=today();
+    if(ch.day===t) return toast('这个挑战今天已经完成过了');
+    ch.day=t;
+    return d0.apply(null,arguments);
+  };
+})();
+
+</script>
+
+<script>
+/* 修正：改名时保留左侧圆点，保证两个面板标题对齐；管理按钮放到固定挑战卡片下方 */
+(function(){
+  function renameKeepDot(){
+    try{
+      document.querySelectorAll('.panel-title').forEach(function(el){
+        /* 只改文本节点，保留 .dot 等子元素 */
+        el.childNodes.forEach(function(n){
+          if(n.nodeType===3 && n.textContent.indexOf('本周挑战')>=0){
+            n.textContent=n.textContent.replace(/本周挑战/g,'本轮挑战');
+          }
+        });
+      });
+    }catch(e){}
+  }
+  function placeManage(){
+    try{
+      const host=document.getElementById('checkinToday');
+      const btn=document.getElementById('habitManageBtn');
+      if(!host || !btn) return;
+      const bar=btn.parentNode;
+      const panel=host.querySelector('.panel');
+      if(panel && bar.previousElementSibling!==panel){
+        panel.parentNode.insertBefore(bar, panel.nextSibling);
+      }
+    }catch(e){}
+  }
+  const r0=window.render;
+  window.render=function(){
+    r0.apply(null,arguments);
+    try{ renameKeepDot(); placeManage(); }catch(e){}
+  };
+  try{ renameKeepDot(); placeManage(); }catch(e){}
+})();
+
+</script>
+<script>
+/* 标题圆点补齐（保证两个面板标题对齐）+ 管理按钮放进固定挑战卡片内部 */
+(function(){
+  function ensureDots(){
+    try{
+      document.querySelectorAll('.panel-title').forEach(function(el){
+        if(!el.querySelector('.dot')){
+          const d=document.createElement('span');
+          d.className='dot';
+          d.style.cssText='background:var(--mint)';
+          el.insertBefore(d, el.firstChild);
+        }
+      });
+    }catch(e){}
+  }
+  function moveBtn(){
+    try{
+      const bar=document.querySelector('#habitManageBtn') && document.querySelector('#habitManageBtn').parentNode;
+      const host=document.getElementById('checkinToday');
+      if(!bar || !host) return;
+      const panel=host.querySelector('.panel');
+      if(!panel) return;
+      /* 放到固定挑战卡片内部的最底部 */
+      if(bar.parentNode!==panel){
+        bar.style.cssText='display:flex;justify-content:flex-end;margin:6px 0 0';
+        panel.appendChild(bar);
+      }
+    }catch(e){}
+  }
+  const r0=window.render;
+  window.render=function(){
+    r0.apply(null,arguments);
+    try{ ensureDots(); moveBtn(); }catch(e){}
+  };
+  try{ ensureDots(); moveBtn(); }catch(e){}
+})();
+
+</script>
+
+
+
+<script>
+/* 正式版：检测到测试数据（99999 能量）时提示并一键清除 */
+(function(){
+  setTimeout(function(){
+    try{
+      if(typeof state==='undefined') return;
+      const c=(typeof ck==='function')?ck():null;
+      const isTest = state.energy>=90000 || (c && c.coins>=9000);
+      if(!isTest) return;
+      if(document.getElementById('testDataMask')) return;
+      const mask=document.createElement('div');
+      mask.id='testDataMask';
+      mask.style.cssText='position:fixed;inset:0;z-index:2147483000;background:rgba(20,28,40,.55);display:flex;align-items:center;justify-content:center;padding:24px;font-family:inherit';
+      mask.innerHTML='<div style="background:#fff;border-radius:18px;padding:22px 20px;max-width:340px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.25)">'
+        + '<div style="font-size:17px;font-weight:800;color:#2C3A47;margin-bottom:8px">检测到测试数据</div>'
+        + '<div style="font-size:13px;color:#7A8798;line-height:1.8;margin-bottom:16px">当前能量 '+state.energy+'、金币 '+(c?c.coins:0)+'，这是测试版留下的存档。<br>清除后会从零开始（不可恢复）。</div>'
+        + '<button id="testResetBtn" style="width:100%;padding:12px;border:none;border-radius:12px;background:#C25E45;color:#fff;font-weight:800;font-size:15px;font-family:inherit">清空并重新开始</button>'
+        + '<button id="testLaterBtn" style="width:100%;padding:10px;margin-top:8px;border:none;border-radius:12px;background:#F2F5F9;color:#7A8798;font-weight:700;font-size:13px;font-family:inherit">稍后</button>'
+        + '</div>';
+      document.body.appendChild(mask);
+      document.getElementById('testLaterBtn').onclick=function(){ mask.remove(); };
+      document.getElementById('testResetBtn').onclick=function(){
+        try{
+          Object.keys(localStorage).forEach(function(k){ if(k.indexOf('wish-gacha')===0) localStorage.removeItem(k); });
+          if(window.indexedDB && indexedDB.deleteDatabase) indexedDB.deleteDatabase('wish-gacha-db');
+        }catch(e){}
+        setTimeout(function(){ location.reload(); }, 300);
+      };
+    }catch(e){}
+  }, 900);
+})();
+
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
