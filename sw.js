@@ -1,4 +1,4 @@
-﻿const CACHE = 'wish-gacha-v30';
+﻿const CACHE = 'wish-gacha-v31';
 const ASSETS = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', e => {
@@ -38,3 +38,4 @@ self.addEventListener('fetch', e => {
     }).catch(() => hit))
   );
 });
+
