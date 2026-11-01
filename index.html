@@ -1485,7 +1485,7 @@ function migrate(s){
 }
 /* 跨天/跨周刷新：抽出成一个函数，加载时和运行时共用 */
 function rollover(s){
-  pushDailySnapshot(s);        // 先把「跨天前」的状态存一份快照
+  try{ pushDailySnapshot(s); }catch(e){}   // 快照失败绝不影响启动
   let ch=false;
   const t=today();
   if(!s.daily || s.daily.date!==t){
@@ -1495,31 +1495,29 @@ function rollover(s){
   }
   if(!s.aiDaily || s.aiDaily.date!==t){ s.aiDaily={date:t,dir:0,cards:0}; ch=true; }
   if(!s.shop) s.shop={fixedDate:t,fixedPurchased:{},randomDate:t,randomOffers:[],unlockedFixed:[]};
-  // 需要进货的三种情况：日期变了 / 还是旧版 buff 货架 / 货架是空的但卡池有卡
-  // （最后一条修的是：新存档 randomDate 一开始就是今天、货架却是空的，导致一整天 0 张）
   const offers = Array.isArray(s.shop.randomOffers) ? s.shop.randomOffers : null;
   const hasCards = (s.wishPool||[]).length + (s.actionPool||[]).length > 0;
   const staleOffers = !offers || offers.some(o=>!o||!o.kind) || (offers.length===0 && hasCards);
   if(s.shop.randomDate!==t || staleOffers){
     s.shop.randomDate=t;
-    s.shop.randomOffers=genRandomOffers(s);
+    try{ s.shop.randomOffers=genRandomOffers(s); }catch(e){ s.shop.randomOffers=[]; }
     ch=true;
   }
   if(s.shop.fixedDate!==getWeekStart()){
     s.shop.fixedDate=getWeekStart();
     s.shop.fixedPurchased={};
-    s.extraCaps={action:0,wish:0}; 
+    s.extraCaps={action:0,wish:0};
     ch=true;
   }
   return ch;
 }
 function loadState(){
-  let s;try{s=JSON.parse(localStorage.getItem(KEY));}catch(e){s=null;}
-  s=migrate(s);
-  rollover(s);
+  let s=null;
+  try{ s=JSON.parse(localStorage.getItem(KEY)); }catch(e){ s=null; }
+  try{ s=migrate(s); }catch(e){ s=defaultState(); }
+  try{ rollover(s); }catch(e){ try{ console.warn('rollover 失败',e); }catch(_){} }
   return s;
-}
-let storageWarned=false;
+}let storageWarned=false;
 function save(){
   try{
     localStorage.setItem(KEY,JSON.stringify(state));
@@ -7047,7 +7045,7 @@ window.ckOpenReport = function(){
     try{
       if(typeof state==='undefined') return;
       const c=(typeof ck==='function')?ck():null;
-      const isTest = state.energy>=90000 || (c && c.coins>=9000);
+      const isTest = (state.energy===99999 && (!c || c.coins===9999));
       if(!isTest) return;
       if(document.getElementById('testDataMask')) return;
       const mask=document.createElement('div');
@@ -7099,8 +7097,85 @@ window.ckOpenReport = function(){
   }catch(e){}
 })();
 </script>
+<script>
+/* 日历总结：新增「自选区间」 */
+(function(){
+  function dayStat(fromStr,toStr){
+    const from=parseDay(fromStr).getTime(), to=parseDay(toStr).getTime()+86399999;
+    const L=(state.ledger||[]).filter(r=>r.t>=from && r.t<=to);
+    const done=L.filter(r=>r.type==='completeAction');
+    const draws=L.filter(r=>r.type==='drawAction'||r.type==='drawWish');
+    const earn=L.filter(r=>r.delta>0).reduce((s,r)=>s+r.delta,0);
+    const spend=L.filter(r=>r.delta<0).reduce((s,r)=>s+r.delta,0);
+    const byDir={};
+    done.forEach(r=>{ const k=String((r.snapshot&&r.snapshot.tag)||'未分类'); byDir[k]=(byDir[k]||0)+1; });
+    const byDay={};
+    done.forEach(r=>{ const d=dateStr(new Date(r.t)); byDay[d]=(byDay[d]||0)+1; });
+    return {done:done.length,draws:draws.length,rate:draws.length?Math.round(done.length/draws.length*100):0,earn,spend,byDir,byDay,days:Object.keys(byDay).length};
+  }
+  window.ckCustomRange=function(){
+    const t=today();
+    const m=new Date(); m.setDate(1);
+    const def1=dateStr(m), def2=t;
+    ckModal('📅 自选时间范围',
+      '<div style="display:flex;gap:8px;margin-bottom:12px">'
+      + '<input id="crFrom" type="date" value="'+def1+'" style="flex:1;padding:10px;border:1px solid #E3E9F0;border-radius:10px;font-family:inherit">'
+      + '<input id="crTo" type="date" value="'+def2+'" style="flex:1;padding:10px;border:1px solid #E3E9F0;border-radius:10px;font-family:inherit">'
+      + '</div>'
+      + '<button id="crGo" class="btn btn-primary" style="width:100%">生成总结</button>'
+      + '<div id="crOut" style="margin-top:14px;font-size:13px;color:#5B6B7B;line-height:1.9"></div>');
+    const mo=document.getElementById('ckModal');
+    document.getElementById('crGo').onclick=function(){
+      const a=document.getElementById('crFrom').value, b=document.getElementById('crTo').value;
+      if(!a||!b) return toast('请选择开始和结束日期');
+      if(a>b) return toast('开始日期不能晚于结束');
+      const st=dayStat(a,b);
+      const dirs=Object.keys(st.byDir).sort((x,y)=>st.byDir[y]-st.byDir[x]).slice(0,5);
+      const out=document.getElementById('crOut');
+      out.innerHTML='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin-bottom:10px">'
+        + '<div style="background:#F7F9FC;border-radius:10px;padding:8px 4px"><div style="font-size:19px;font-weight:800">'+st.done+'</div><div style="font-size:12px;color:#8A97A6">完成</div></div>'
+        + '<div style="background:#F7F9FC;border-radius:10px;padding:8px 4px"><div style="font-size:19px;font-weight:800">'+st.rate+'%</div><div style="font-size:12px;color:#8A97A6">完成率</div></div>'
+        + '<div style="background:#F7F9FC;border-radius:10px;padding:8px 4px"><div style="font-size:19px;font-weight:800">'+fmt(st.earn+st.spend)+'</div><div style="font-size:12px;color:#8A97A6">能量结余</div></div>'
+        + '</div>'
+        + '<div>有行动的天数：'+st.days+' 天</div>'
+        + (dirs.length? '<div>方向：'+dirs.map(d=>escapeHtml(d)+' '+st.byDir[d]+'次').join('、')+'</div>' : '')
+        + '<div id="crAI" style="margin-top:8px;color:#7A8798">AI 正在回顾…</div>';
+      (async function(){
+        const box=document.getElementById('crAI'); if(!box) return;
+        if(!(typeof aiReady==='function' && aiReady())){ box.textContent='（填 API Key 后这里会有 AI 回顾）'; return; }
+        try{
+          const p='用户 '+a+' 至 '+b+' 的数据：完成行动 '+st.done+' 件，完成率 '+st.rate+'%，能量收入 '+fmt(st.earn)+'、支出 '+fmt(st.spend)+'，'
+            +'主要方向：'+(dirs.slice(0,3).join('、')||'无')+'。请用 3 句话回顾：事实、规律、建议。中文，不要引号。';
+          const txt=await callAI(p);
+          if(document.getElementById('crAI')) document.getElementById('crAI').innerHTML=escapeHtml(String(txt||'').trim().slice(0,220));
+        }catch(e){ if(document.getElementById('crAI')) document.getElementById('crAI').textContent='AI 失败'; }
+      })();
+    };
+  };
+  function inject(){
+    try{
+      const bm=document.getElementById('btnMonthly');
+      if(!bm || document.getElementById('btnCustomRange')) return;
+      const b=document.createElement('button');
+      b.className='btn btn-ghost btn-sm';
+      b.id='btnCustomRange';
+      b.textContent='自选区间';
+      b.onclick=function(){ ckCustomRange(); };
+      bm.parentNode.insertBefore(b, bm.nextSibling);
+    }catch(e){}
+  }
+  const r0=window.render;
+  window.render=function(){ r0.apply(null,arguments); try{ inject(); }catch(e){} };
+  setTimeout(inject,400);
+})();
+
+</script>
 </body>
 </html>
+
+
+
+
 
 
 
