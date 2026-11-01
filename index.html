@@ -6804,8 +6804,12 @@ window.ckOpenReport = function(){
       let fi=0;
       c.ch=c.ch.map(function(ch,i){
         if(decision[i]==='keep'){
-          ch.claimed=false;           /* 奖励重新算，进度保留 */
+          /* 保留内容，新一轮重新开始：进度归零、当天锁解除、奖励重算；累计次数保留 */
+          ch.done=0;
+          ch.day='';
+          ch.claimed=false;
           ch.rewarded=0;
+          ch.total=ch.total||0;
           return ch;
         }
         const nf=fresh[fi++];
@@ -7202,6 +7206,8 @@ window.ckOpenReport = function(){
 </script>
 </body>
 </html>
+
+
 
 
 
