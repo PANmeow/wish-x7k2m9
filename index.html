@@ -4279,8 +4279,8 @@ $('#btnExportFile').onclick = () => {
   }
 };
 $('#btnImportFile').onclick = () => {
-  openImportModal();
-  $('#backupFile').click();
+  toast('正在打开文件选择…');
+  setTimeout(()=>{ try{ openImportModal(); $('#backupFile').click(); }catch(e){ toast('打开失败：'+e.message); } }, 30);
 };
 $('#backupFile').onchange = (e) => {
   const f = e.target.files && e.target.files[0];
@@ -7170,8 +7170,41 @@ window.ckOpenReport = function(){
 })();
 
 </script>
+<script>
+/* 崩溃日志：记录最后一次错误，方便定位 */
+(function(){
+  const K='wish-gacha-lasterr';
+  function save(msg,line,stack){
+    try{
+      localStorage.setItem(K, JSON.stringify({t:Date.now(), msg:String(msg||''), line:line||0, stack:String(stack||'').slice(0,600)}));
+    }catch(e){}
+  }
+  window.addEventListener('error', function(ev){
+    try{ save(ev.message, ev.lineno, ev.error&&ev.error.stack); }catch(e){}
+  });
+  window.addEventListener('unhandledrejection', function(ev){
+    try{ save('Promise: '+(ev.reason&&ev.reason.message||ev.reason), 0, ev.reason&&ev.reason.stack); }catch(e){}
+  });
+  window.__lastErr=function(){
+    try{ return JSON.parse(localStorage.getItem(K)||'null'); }catch(e){ return null; }
+  };
+  /* 自救页出现时，把日志一并显示出来 */
+  const oldBuild = window.__showRecovery;
+  if(typeof oldBuild==='function'){
+    window.__showRecovery=function(msg){
+      const e=window.__lastErr();
+      const extra = e ? ('\n\n上次错误时间：'+new Date(e.t).toLocaleString()+'\n'+(e.stack||'')) : '';
+      return oldBuild(String(msg||'')+extra);
+    };
+  }
+})();
+
+</script>
 </body>
 </html>
+
+
+
 
 
 
