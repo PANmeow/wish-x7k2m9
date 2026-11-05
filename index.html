@@ -1497,7 +1497,7 @@ function rollover(s){
   if(!s.shop) s.shop={fixedDate:t,fixedPurchased:{},randomDate:t,randomOffers:[],unlockedFixed:[]};
   const offers = Array.isArray(s.shop.randomOffers) ? s.shop.randomOffers : null;
   const hasCards = (s.wishPool||[]).length + (s.actionPool||[]).length > 0;
-  const staleOffers = !offers || offers.some(o=>!o||!o.kind) || (offers.length===0 && hasCards);
+  const staleOffers = !offers || offers.some(o=>!o||!o.kind||!isFinite(o.price)||o.price<=0) || (offers.length===0 && hasCards);
   if(s.shop.randomDate!==t || staleOffers){
     s.shop.randomDate=t;
     try{ s.shop.randomOffers=genRandomOffers(s); }catch(e){ s.shop.randomOffers=[]; }
@@ -1518,7 +1518,16 @@ function loadState(){
   try{ rollover(s); }catch(e){ try{ console.warn('rollover 失败',e); }catch(_){} }
   return s;
 }let storageWarned=false;
-function save(){
+let __lastGoodEnergy=0;
+function save(){  /* 能量绝不允许出现 NaN：出现就回退到上一次正常值 */
+  try{
+    if(typeof state.energy!=='number' || !isFinite(state.energy)){
+      state.energy = (isFinite(__lastGoodEnergy)) ? __lastGoodEnergy : 0;
+      try{ if(typeof toast==='function') setTimeout(function(){ toast('能量数据异常，已自动恢复为 '+state.energy); },200); }catch(_){}
+    }else{
+      __lastGoodEnergy = state.energy;
+    }
+  }catch(_){}
   try{
     localStorage.setItem(KEY,JSON.stringify(state));
     if(storageWarned){
@@ -2711,7 +2720,7 @@ function completeAction(id,fromInv){
       gain = card.energy + Math.min(30, card.energy);
     }
   }catch(e){}
-  state.energy+=gain;
+  state.energy+= (isFinite(gain)?gain:0);
   record('completeAction','完成行动：'+card.name,gain,'',card,fromInv?'inv':'today'); 
   list.splice(idx,1);
   save();render();toast(`完成！+${fmt(gain)} 能量`+(gain>card.energy?'（双倍）':''));
@@ -2757,7 +2766,7 @@ function useWish(id,fromInv){
     return;
   }
 
-  state.energy-=card.cost;
+  state.energy-= (isFinite(card.cost)?card.cost:0);
   record('useWish','使用心愿：'+card.name,-card.cost,'',card,fromInv?'inv':'today');
   list.splice(idx,1);
   save();render();toast(`使用心愿：${card.name}`);
@@ -2805,7 +2814,7 @@ function buyFixed(key){
   const used=p[key]||0;
   if(used>=limits[key]) return toast('本周购买次数已用完');
   if(state.energy<prices[key]) return toast('能量不足');
-  state.energy-=prices[key];p[key]=used+1;
+  state.energy-= (isFinite(prices[key])?prices[key]:0);p[key]=used+1;
   if(key==='expand'){
     /* 先退回（购买流程里已经扣过），选好之后再真正扣 */
     const _price=prices[key];
@@ -2844,7 +2853,7 @@ function buyRandom(id){
     if(state.actionInv.length>=ac) return toast('行动仓库已满');
     const card={id:uid(),name:o.name,energy:o.energy,fromShop:true,
       expiresAt:Date.now()+ACTION_SHELF_DAYS*86400000};
-    state.energy-=o.price;
+    state.energy-= (isFinite(o.price)?o.price:0);
     state.actionInv.push(card);
     record('buyRandom','买行动卡：'+o.name,o.price*-1,'',{id:card.id,kind:'action'});
     o.used=1;
@@ -2854,7 +2863,7 @@ function buyRandom(id){
   if(state.wishInv.length>=(WISH_CAP+(state.wishCapBonus||0))) return toast('心愿仓库已满');
   const card={id:uid(),name:o.name,cost:o.cost,fromShop:true,
     expiresAt:Date.now()+WISH_SHELF_DAYS*86400000};
-  state.energy-=o.price;
+  state.energy-= (isFinite(o.price)?o.price:0);
   state.wishInv.push(card);
   record('buyRandom','买心愿卡：'+o.name,o.price*-1,'',{id:card.id,kind:'wish'});
   o.used=1;
@@ -2864,7 +2873,7 @@ function buyUnlocked(id){
   const u=state.shop.unlockedFixed.find(x=>x.id===id);if(!u)return;
   if(state.energy<u.price) return toast('能量不足');
   if(state.wishInv.length>=(WISH_CAP+(state.wishCapBonus||0))) return toast('心愿仓库已满');
-  state.energy-=u.price;
+  state.energy-= (isFinite(u.price)?u.price:0);
   
   const card={id:uid(),name:u.name.replace(' 固定兑换',''),cost:10,expiresAt:Date.now()+WISH_SHELF_DAYS*86400000};
   state.wishInv.push(card);
@@ -7206,6 +7215,10 @@ window.ckOpenReport = function(){
 </script>
 </body>
 </html>
+
+
+
+
 
 
 
